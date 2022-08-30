@@ -3,7 +3,7 @@ public class Account_Inline_Controller {
     public List<Contact> noParentRecords{get;set;}
     public List<AccountModel> contactParentRecords{get;set;}
     public List<AccountModel> contactNoParentRecords{get;set;}
-    private Id accId;
+    private Id accId; //fgfgdf
     
     public Account_Inline_Controller(ApexPages.StandardController s){
         accId = s.getId();
