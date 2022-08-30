@@ -1,0 +1,13 @@
+<apex:component controller="AccountComponentController">
+    <apex:attribute name="RecordId" type="Id" description="" required="true" assignTo="{!accountId}"/>
+    <apex:pageBlockSection title="Account Detail">
+        <apex:outputField value="{!account.Name}"/>
+        <apex:outputField value="{!account.Type}"/>
+        <apex:outputField value="{!account.Phone}"/>
+        <apex:outputField value="{!account.OwnerId}"/>
+        <apex:outputField value="{!account.salary__c}"/>
+        <apex:outputField value="{!account.CreatedDate}"/>
+        <apex:outputField value="{!account.Father_Name__c}"/>
+        <apex:outputField value="{!account.password__c}"/>
+    </apex:pageBlockSection>
+</apex:component>

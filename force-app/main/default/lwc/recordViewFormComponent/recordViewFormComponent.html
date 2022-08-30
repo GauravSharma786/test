@@ -1,0 +1,19 @@
+<template>
+    <lightning-card>
+        <lightning-record-view-form record-id={recordId} object-api-name="Account">
+            <table border="2px solid">
+                <template if:true={obj} for:each={obj} for:item="account">
+                    <tr key={account.value}>
+                        <th>
+                            {account.Label}
+                        </th>
+                        <td>
+                            <lightning-output-field variant="label-hidden" field-name={account.value}>
+                            </lightning-output-field>
+                        </td>
+                    </tr>
+                </template>
+            </table>
+        </lightning-record-view-form>
+    </lightning-card>
+</template>

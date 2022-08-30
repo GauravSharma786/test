@@ -1,0 +1,5 @@
+<apex:page title="Object Records">
+    <apex:pageBlock >
+        <c:ObjectRecordsComponent ObjectName="Contact"/>
+    </apex:pageBlock>
+</apex:page>

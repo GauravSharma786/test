@@ -1,0 +1,22 @@
+<apex:page controller="AttacmentSubqueryController">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:repeat value="{!contactList}" var="contact" >
+                <apex:pageBlockSection title="{!contact.Name}" columns="2">
+                    <apex:pageBlockSectionItem >
+                        <apex:repeat value="{!contact.Attachments}" var="attachment" rendered="{!contact.Attachments.size > 0}">
+                            <apex:image url="/servlet/servlet.FileDownload?file={!attachment.Id}" height="50px" width="50px" />&nbsp;&nbsp;&nbsp;&nbsp;
+                        </apex:repeat>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+               
+                <apex:outputPanel rendered="{!contact.Attachments.size = 0}">
+                    <apex:outputText >No Related Attachment Found</apex:outputText>
+                </apex:outputPanel>
+            </apex:repeat>
+        <apex:outputPanel rendered="{!contactList.size = 0}">
+            <apex:outputText >No Record Found </apex:outputText>
+        </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

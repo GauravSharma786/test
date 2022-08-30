@@ -1,0 +1,7 @@
+<template>
+    <div style="height: 300px;" if:true={contactFeilds}>
+        <lightning-datatable key-field="id" data={contactFeilds} columns={columns} onrowselection={getSelectedName}>
+        </lightning-datatable>
+
+    </div>
+</template>

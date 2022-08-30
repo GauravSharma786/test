@@ -1,0 +1,13 @@
+.image{
+    width: 54%;
+    /* max-height: 81%; */
+    height: 74%;
+    /* height: auto; */
+    margin-left: 43px;
+}
+.header{
+    margin: 0px;
+    padding: 0px;
+    font-size: 25px;
+    margin-left: 47px;
+}

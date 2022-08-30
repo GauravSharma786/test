@@ -1,0 +1,19 @@
+<apex:page controller="ContactListController">
+    <apex:form >
+        <apex:pageBlock title="Booking Table">
+            <apex:pageBlockTable value="{!contacts}" var="con" id="Contact">
+              <!--    <apex:column headerValue="Action"> 
+                    <apex:commandButton action="{!view}" value="view" reRender="Contact">
+                        <apex:param name="cid" value="{!con.id}" assignTo="{!cid}" />
+                    </apex:commandButton> 
+                </apex:column>   -->
+                <apex:column value="{!con.FirstName}" />
+                <apex:column value="{!con.LastName}" />
+                <apex:column value="{!con.Phone}" />
+                <apex:column value="{!con.Birthdate}" />
+            </apex:pageBlockTable>
+            <apex:pageBlockButtons >
+            </apex:pageBlockButtons>
+        </apex:pageBlock>      
+    </apex:form>
+</apex:page>

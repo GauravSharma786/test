@@ -1,0 +1,27 @@
+<apex:page controller="Country_second_Controller" id="pg" >
+    <apex:form >
+        <apex:actionFunction action="{!fetchStates}" reRender="loadList" name="fetchStates"/>
+        <apex:actionFunction action="{!fetchCities}" reRender="loadList" name="fetchCities"/>
+        <!--    <apex:actionFunction action="{!fetchCities}" reRender="frm" name="fetchCities" status="countryStatus">
+            <apex:param assignTo="{!value1}" name="arg1" value="" />
+            <apex:param assignTo="{!value2}" name="arg2" value="" />
+         </apex:actionFunction> -->
+        <apex:pageBlock id="loadList" >
+            Country :
+            <apex:selectList size="1" value="{!selectedCountry}" onchange="fetchStates();">
+                <apex:selectOptions value="{!countryOptions}"></apex:selectOptions>
+            </apex:selectList>
+            
+            State:
+            <apex:selectList id="state" size="1" value="{!selectedState}"  onchange="fetchCities();">
+                <apex:selectOptions value="{!stateOptions}"></apex:selectOptions>
+            </apex:selectList>
+            
+            City:
+            <apex:selectList id="city" size="1" value="{!selectedCity}">
+                <apex:selectOptions value="{!cityOptions}"></apex:selectOptions>
+            </apex:selectList>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

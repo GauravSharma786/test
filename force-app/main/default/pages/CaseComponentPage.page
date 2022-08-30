@@ -1,0 +1,10 @@
+<apex:page controller="CaseComponentController">
+    <apex:PageBlock >
+        <apex:pageBlockSection >
+            <apex:outputField value="{!cases.CaseNumber}"/>
+            <apex:outputField value="{!cases.Status}"/>
+            <apex:outputField value="{!cases.Type}"/>
+        </apex:pageBlockSection>
+        <c:AccountObjectComponent RecordId="{!cases.AccountId}"/>
+    </apex:PageBlock>
+</apex:page>

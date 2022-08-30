@@ -1,0 +1,23 @@
+<apex:page controller="TaskListInnerClassController">
+    <apex:form >
+        <apex:pageBlock title="Tasks Detail">
+                <apex:pageBlockTable value="{!tasks}" var="tm">
+                <apex:column headerValue="S.N">
+                    <apex:outputText value="{!tm.srNo}"/>
+                </apex:column>
+                     <apex:column headerValue="Select">
+                    <apex:inputCheckbox value="{!tm.isChecked}"/>
+                </apex:column>
+                    <apex:column value="{!tm.tsk.WhoId}"/>
+                    <apex:column value="{!tm.tsk.WhatId}"/>
+                    <apex:column value="{!tm.tsk.Subject}"/>
+                    <apex:column value="{!tm.tsk.ActivityDate}"/>
+                    <apex:column value="{!tm.tsk.Status}"/>
+                </apex:pageBlockTable>
+                <apex:pageBlockButtons >
+                 	<apex:commandButton value="Assign Task" action="{!assignTask}"/>
+                    
+                </apex:pageBlockButtons> 
+            </apex:pageBlock>
+        </apex:form>
+    </apex:page>

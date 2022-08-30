@@ -1,0 +1,41 @@
+<template>
+    <lightning-card>
+
+    <!-- lightning Checkbox -->
+    <div class="slds-box">
+        <lightning-input type="checkbox" label="Select" name="check" value={isChecked} onchange={handleChange}></lightning-input>
+    </div> 
+
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+            <thead>
+              <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="Opportunity Name">Account Name</div>
+                </th>
+                <th class="" scope="col" if:true={isChecked}>
+                  <div class="slds-truncate" title="Close Date">Contacts Count</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+            <template if:true={allAccounts} for:each={allAccounts} for:item="account" >
+                <tr class="slds-hint-parent"  key={account.Id}> 
+                  <th data-label="Account Name" scope="row">
+                    <div class="slds-truncate" title="Cloudhub + Anypoint Connectors">
+                      <a href="#" tabindex="-1">{account.Name}</a>
+                    </div>
+                  </th>
+                  <td data-label="Contacts Count" if:true={isChecked}> 
+                    <div class="slds-truncate" title="Cloudhub">{account.contactCount}</div>
+                  </td>
+                </tr>
+            </template>
+        </tbody>
+        </table>
+    </lightning-card>
+    <!-- <lightning-card if:true={showChild}>
+        <div class="image">
+          <img src={photo}/>
+        </div>
+    </lightning-card> -->
+</template>

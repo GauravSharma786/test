@@ -1,0 +1,36 @@
+<template>
+    <lightning-card>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="12" padding="around-small" small-device-size="3" medium-device-size="6"
+                large-device-size="6">
+                <div class="slds-m-around_medium slds-grid">
+                    <div class="slds-m-around_medium slds-size_2-of-8">
+                        <lightning-combobox label="Select sObject" options={listOfObject} value={selectedObject}
+                            onchange={handlesObjectValue}>
+                        </lightning-combobox>
+                    </div>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-small" small-device-size="3" medium-device-size="6"
+                large-device-size="6">
+                <template if:true={selectedObject}>
+                    <lightning-card>
+                        <lightning-dual-listbox name="fields" label="Select Fields" source-label="Available"
+                            selected-label="Selected" options={fieldsOfObject} value={_selected}
+                            onchange={handleChange}>
+                        </lightning-dual-listbox>
+                    </lightning-card>
+                </template>
+            </lightning-layout-item>
+        </lightning-layout>
+        <template if:true={recordsOfObject}>
+            <lightning-card title={title}>
+                <div style="height: 300px;">
+                    <lightning-datatable key-field="id" data={recordsOfObject} columns={columns} max-row-selection="1"
+                        onrowselection={getSelectedName}>
+                    </lightning-datatable>
+                </div>
+            </lightning-card>
+        </template>
+    </lightning-card>
+</template>

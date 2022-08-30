@@ -1,0 +1,29 @@
+<apex:page controller="ContactListController">
+    <apex:form >
+        <apex:pageBlock title="Tasks Detail">
+            <apex:variable var="rowNo" value="{!1}"/>
+     <!--    <apex:actionFunction name="taskAsssignId" action="{!TaskCheckboxList}" reRender="">
+                <apex:param name="taskId" value="taskId" assignTo="{!taskId}" />
+            </apex:actionFunction> -->
+                <apex:pageBlockTable value="{!tasks}" var="task">
+                     <apex:column headerValue="Sl.No">
+                        {!rowNo}
+                     <apex:variable var="rowNo" value="{!rowNo+1}"/>
+                 </apex:column>
+                    <apex:column >
+                        <input type ="checkbox" value ="{!task.Id}" name="{!task.Id}"/>
+                    </apex:column>
+                    <apex:column value="{!task.OwnerId}"/>
+                    <apex:column value="{!task.WhoId}"/>
+                    <apex:column value="{!task.WhatId}"/>
+                    <apex:column value="{!task.Subject}"/>
+                    <apex:column value="{!task.ActivityDate}"/>
+                    <apex:column value="{!task.Status}"/>
+                    <apex:column value="{!task.Priority}"/>
+                </apex:pageBlockTable>
+                <apex:pageBlockButtons >
+                    <apex:commandButton value="Save Task" action="{!save}"/>
+                </apex:pageBlockButtons> 
+            </apex:pageBlock>
+        </apex:form>
+    </apex:page>

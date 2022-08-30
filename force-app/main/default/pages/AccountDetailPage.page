@@ -1,0 +1,74 @@
+<apex:page standardController="Account" >
+    <apex:form >
+        <apex:sectionHeader title="Account Edit" subtitle="New Account"/>
+        <apex:pageBlock title="Account Edit">
+            <apex:pageBlockSection title="Account Information" columns="2" collapsible="False">
+                <apex:outputField value="{!Account.OwnerId}"/>/>
+                <apex:outputField value="{!Account.Rating}"/>
+                <apex:outputField value="{!Account.Name}"/>
+                <apex:outputField value="{!Account.Phone}"/>
+                <apex:outputField value="{!Account.ParentId}"/>
+                <apex:outputField value="{!Account.Fax}"/>
+                <apex:outputField value="{!Account.AccountNumber}"/>
+                <apex:outputField value="{!Account.Website}"/>
+                <apex:outputField value="{!Account.Site}"/>
+                <apex:outputField value="{!Account.TickerSymbol}"/>
+                <apex:outputField value="{!Account.Type}"/>
+                <apex:outputField value="{!Account.Ownership}"/>
+                <apex:outputField value="{!Account.Industry}"/>
+                <apex:outputField value="{!Account.NumberOfEmployees}"/>
+                <apex:outputField value="{!Account.AnnualRevenue}"/>
+                <apex:outputField value="{!Account.Sic}"/>
+                <apex:outputField value="{!Account.Address__c}"/>
+                <apex:outputField value="{!Account.CustomerPriority__c}" />
+                <apex:outputField value="{!Account.SLA__c}"/>
+                <apex:outputField value="{!Account.SLAExpirationDate__c}"/>
+                <apex:outputField value="{!Account.SLASerialNumber__c}"/>
+                <apex:outputField value="{!Account.NumberofLocations__c}"/>
+                <apex:outputField value="{!Account.UpsellOpportunity__c}"/>
+                <apex:outputField value="{!Account.Active__c}"/>
+                <apex:outputField value="{!Account.CreatedById}"/>
+                <apex:outputField value="{!Account.LastModifiedById}"/>
+                <apex:outputField value="{!Account.LastModifiedById}"/>
+                <apex:outputField value="{!Account.Description}"/>
+            </apex:pageBlockSection>
+            
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="/apex/AccountListPage" value="Back" immediate="True" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        <apex:pageBlock title="Contact ">
+            <apex:sectionHeader title="Contacts"/>
+            <apex:pageBlockTable value="{!Account.Contacts}" var="Contact">
+                <apex:column value="{!Contact.Name}"/>
+                <apex:column value="{!Contact.AccountId}"/>
+                <apex:column value="{!Contact.Email}"/>
+                <apex:column value="{!Contact.Phone}"/>
+            </apex:pageBlockTable>
+            
+            <!--  <apex:pageBlockTable value="{!Account.Attachments}" var="attachment">
+<apex:column value="{!attachment.Name}"/>
+<apex:column value="{!attachment.ContentType}"/>
+<apex:column value="{!attachment.ContentType}"/>
+<apex:column ><img src="/servlet/servlet.FileDownload?file={!attachment.Id}" width="100"/> </apex:column>
+</apex:pageBlockTable> -->
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="/apex/Contact" value="New Student"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Attachments " >
+            <apex:sectionHeader title="Attachments"/>
+            <apex:pageBlockTable value="{!Account.Attachments}" var="attachment">
+                <apex:column value="{!attachment.Name}"/>
+                <apex:column value="{!attachment.ContentType}"/>
+                <apex:column value="{!attachment.Description}"/>
+                <apex:column ><img src="/servlet/servlet.FileDownload?file={!attachment.Id}" width="100"/> </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        
+    </apex:form>
+</apex:page>

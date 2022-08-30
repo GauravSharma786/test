@@ -1,0 +1,21 @@
+<apex:page controller="AttachmentMapClassController" >
+    <apex:form >
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!attachmentModelList}" var="attachmentModel">
+             <apex:column headerValue="Action"> 
+                    <apex:commandButton action="{!uploadAttachment}" value="Upload Image" reRender="Contact">
+                   	 	<apex:param name="cid" value="{!attachmentModel.contact.id}" assignTo="{!cid}" />
+                    </apex:commandButton>
+                </apex:column> 
+               <apex:column headerValue="First Name" value="{!attachmentModel.contact.FirstName}"/>
+             <apex:column headerValue="Total Attachments" value="{!attachmentModel.totalAttachments}"/>
+            <apex:column >
+                    <apex:image url="{!attachmentModel.recentAttachment}" height="50px" width="50px"
+                                rendered="{!attachmentModel.totalAttachments > 0}"/>
+                    <apex:image url="{!$Resource.StaticPhoto}" height="50px" width="50px"
+                                rendered="{!attachmentModel.totalAttachments ==  0}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

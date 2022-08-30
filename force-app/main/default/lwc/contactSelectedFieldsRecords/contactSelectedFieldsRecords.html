@@ -1,0 +1,8 @@
+<template>
+    <div style="height: 300px;">
+        <lightning-datatable key-field="id" data={contacts} columns={columns} hide-checkbox-column>
+        </lightning-datatable>
+        <lightning-button icon-name="utility:download" label="Download as CSV" title="Download CSV File"
+            onclick={downloadCSVFile} variant="brand"></lightning-button>
+    </div>
+</template>

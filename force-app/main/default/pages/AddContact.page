@@ -1,0 +1,19 @@
+<apex:page controller="ContactListController">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageMessages />
+            <apex:sectionHeader title="Contact" subtitle="New/Edit Page"/>
+            <apex:pageBlockSection collapsible="false">
+                <apex:inputField value="{!contact.FirstName}"/>
+                <apex:inputField value="{!contact.LastName}"/>
+                <apex:inputField value="{!contact.Birthdate}"/>
+                <apex:inputField value="{!contact.Department}"/>
+                <apex:inputField value="{!contact.MobilePhone}"/>
+            </apex:pageBlockSection>
+          <!--  <apex:pageBlockButtons >
+                <apex:commandButton action="{!quickSave}" value="Save" />
+                <apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+            </apex:pageBlockButtons> -->
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

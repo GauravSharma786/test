@@ -1,0 +1,30 @@
+<apex:page Controller="StudentControler">
+    <apex:form >
+       <apex:actionFunction name="checkBoxList" action="{!checkBoxList}" reRender="" >
+        	<apex:param name="sid" value="" assignTo="{!studentId}" />
+        </apex:actionFunction>
+        <apex:pageBlock title="Student Table" >
+            <apex:pageBlockTable value="{!stus}" var="Stud" > 
+               <!-- <apex:column headerValue="Action" > 
+                    <apex:commandLink value="Edit" action="/apex/AddNewStudent?id={!Student.Id}"/> 
+                    &nbsp; &nbsp; <apex:commandLink value="View" action="/apex/StudentDetailPage?id={!Student.Id}"/>
+                </apex:column>-->
+                <apex:column value="{!Stud.Name}" />
+                <apex:column value="{!Stud.DOB__c}" />
+                <apex:column value="{!Stud.Email__c}" />
+                <apex:column value="{!Stud.Gender__c}" />
+                <apex:column value="{!Stud.Class__c}" />
+                <apex:column value="{!Stud.Age__c}" />
+            </apex:pageBlockTable>
+      <!--      <apex:pageBlockButtons >
+                <apex:commandButton action="/apex/AddNewStudent" value="New Student"/>
+                <apex:commandButton action="{!first}" value="First"/>
+                <apex:commandButton action="{!previous}" value="Previous"/>
+                <apex:commandButton action="{!next}" value="Next"/>
+                <apex:commandButton action="{!last}" value="Last"/>
+                 <apex:commandButton action="{!delete}" value="Delete"/>
+            </apex:pageBlockButtons>-->
+            
+        </apex:pageBlock>      
+    </apex:form>
+</apex:page>

@@ -1,0 +1,28 @@
+<template>
+    <lightning-card>
+        <b>
+            <p class="header">My Upcoming Shows</p>
+        </b>
+        <hr />
+        <template for:each={bookingStages} for:item="bookingStageObj">
+            <div class="slds-m-around_small" key={bookingStageObj.id}>
+                <lightning-layout>
+                    <lightning-layout-item size="4">
+                        <img class="image" src={bookingStageObj.movieImage} />
+                    </lightning-layout-item>
+                    <lightning-layout-item size="8">
+                        <div>
+                            <b>
+                                <p class="movie-details">{bookingStageObj.movieName}</p>
+                            </b>
+                            {bookingStageObj.movieDate}| <lightning-formatted-date-time
+                                value={bookingStageObj.movieTime} hour="2-digit" minute="2-digit" time-zone="UTC"
+                                time-zone-name="short" class="movie-time">
+                            </lightning-formatted-date-time> You Booked {bookingStageObj.totalSeatsCount} Seats
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </template>
+    </lightning-card>
+</template>

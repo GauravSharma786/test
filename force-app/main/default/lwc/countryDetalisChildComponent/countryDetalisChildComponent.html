@@ -1,0 +1,23 @@
+<template>
+    <lightning-card title="Countries Details">
+        <div class="slds-m-around_x-small">
+            <table>
+                <template for:each={countriesDetail} for:item="country" >
+                    <tr key={country.header}>
+                        <td><img src={country.imageUrl} class="image"></td>
+                        <td>
+                            Country Name : <b>{country.header}</b><br/>
+                            Country Description : {country.description}<br/>                              
+                            <lightning-input type="checkbox"
+                                            label="Is Visible"
+                                            value={country.header}>
+                            </lightning-input>
+                        </td>
+                    </tr>
+                </template>
+            </table>
+            <br/>
+            <lightning-button variant="success" label="Submit" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+        </div>
+    </lightning-card>
+</template>

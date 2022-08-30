@@ -1,0 +1,10 @@
+<apex:page controller="ContactComponentController">
+    <apex:PageBlock >
+        <apex:pageBlockSection >
+            <apex:outputField value="{!contact.FirstName}"/>
+            <apex:outputField value="{!contact.LastName}"/>
+            <apex:outputField value="{!contact.Email}"/>
+        </apex:pageBlockSection>
+        <c:AccountObjectComponent RecordId="{!contact.AccountId}"/>
+    </apex:PageBlock>
+</apex:page>

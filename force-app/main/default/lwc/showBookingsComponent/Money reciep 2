@@ -1,0 +1,244 @@
+import { LightningElement, track, api } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import insertMoneyReciept from '@salesforce/apex/InsertMoneyReceiptsController.insertMoneyReciept';
+import getUserProfile from '@salesforce/apex/InsertMoneyReceiptsController.getUserProfile';
+// import getCustomerRecord from '@salesforce/apex/InsertMoneyReceiptsController.getCustomerRecord';
+import userId from '@salesforce/user/Id';
+
+// const CUSTOMER_FILTER_CONDITION = "RecordType.Name = 'Customer' AND SAP_Customer_Code__c != NULL AND SAP_Customer_Code__c LIKE '40%'";
+
+const source = {
+    customer: null,
+    customerLookupRef: null,
+    documentDate: null,
+    docNo: '',
+    docHeaderText: '',
+    accountBank: '',
+    amount: 0,
+    financialInstrument: '',
+    remarks: '',
+    salesOrder: []
+}
+
+export default class InsertMoneyReceipts extends LightningElement {
+    @api mainData;
+    @api isUpdate = false;
+
+    @track customerfilterCondition = "RecordType.Name = 'Customer' AND SAP_Customer_Code__c != NULL AND SAP_Customer_Code__c LIKE '40%'";
+    @track salesOrderfilterCondition = "Sales_Order_No__c != null";
+    @track moneyRecieptData = [{ ...Object.assign({}, source), uniqueKey: Math.floor(Math.random() * 1000000) }];
+    @track isCustomer = false;
+    @track isCam = false;
+    @track isPartner = false;
+    isSpinner = false;
+    salesfilterCondition;
+    contactCustomerRecord;
+
+    connectedCallback() {
+        console.log('moneyRecieptData : ', this.moneyRecieptData);
+        getUserProfile().then(result => {
+            console.log('result  :-  ', result);
+            this.contactCustomerRecord = result.contact;
+            if (result.profileObj.Name == 'PI Customer') {
+                this.isCustomer = true;
+            }
+            else if (result.profileObj.Name == 'PI Partner') {
+                this.isPartner = true;
+                this.customerfilterCondition = "RecordType.Name = 'Customer' AND SAP_Customer_Code__c != NULL AND SAP_Customer_Code__c LIKE '40%' AND Partner_Account__c = '" + this.contactCustomerRecord.AccountId + "'";
+                // this.moneyRecieptData = [{ ...Object.assign({}, source), uniqueKey: Math.floor(Math.random() * 1000000) }];
+                console.log('moneyRecieptData after change : ', this.moneyRecieptData);
+            }
+            else if (result.profileObj.Name == 'PI CAM' || result.profileObj.Name == 'PI Back Office') {
+                this.isCam = true;
+                this.customerfilterCondition = "RecordType.Name = 'Customer' AND SAP_Customer_Code__c != NULL AND SAP_Customer_Code__c LIKE '40%' AND OwnerId  = '" + userId + "'";
+            }
+        }).catch(error => {
+            console.error('Submit:', error);
+            submitButton.disabled = false;
+            this.isSpinner = false;
+            this.showNotification('Error', (error.body.message || error.message), 'error');
+        });
+
+    }
+
+    handleAddRow() {
+        console.log('handle add row change : ');
+        let data = [...this.moneyRecieptData];
+        data.push({ ...Object.assign({}, source), uniqueKey: Math.floor(Math.random() * 1000000) });
+        this.moneyRecieptData = [...data];
+
+        setTimeout((self) => {
+            let elem = self.template.querySelector('.main-table');
+            elem.scrollTop = elem.scrollHeight;
+        }, 50, this);
+    }
+
+    handleRemoveRow(event) {
+        let data = JSON.parse(JSON.stringify(this.moneyRecieptData));
+        data.splice(event.currentTarget.dataset.index, 1);
+        this.moneyRecieptData = JSON.parse(JSON.stringify(data));
+    }
+
+    handleSalesOrderSelect(event) {
+        console.log('Data of Sales order  : ', event.detail.uniqueId);
+        let index = event.detail.uniqueId;
+        this.moneyRecieptData[index].salesOrder = [];
+        event.detail.data.forEach(element => {
+            this.moneyRecieptData[index].salesOrder.push(element.id);
+            console.log('this.moneyRecieptData : ', this.moneyRecieptData);
+        });
+        //this.moneyRecieptData[index][this.salesOrder].push(event.detail.data.id);
+        // event.detail.data.forEach(element => {
+        //     let obj = {
+        //         Sales_Order__c: element.id,
+        //         Money_Receipt__c: '',
+        //         uniqueKey: event.target.dataset.key
+        //     }
+        //     this.salesOrder.push(obj);
+        // });
+    }
+
+    handleCustomerSelected(event) {
+        console.log('Data of Sales order  : ', event.detail.data);
+        this.fillReference('customer', JSON.parse(JSON.stringify(event.detail)));
+    }
+
+    fillReference(type, value) {
+        let index = value.uniqueId, id = null, reference = null;
+        if (value.data.length) {
+            id = value.data[0].id;
+            reference = value.data;
+        }
+        let data = [...this.moneyRecieptData];
+        if (type == 'customer') {
+            data[index].customer = id;
+            data[index].customerLookupRef = reference;
+        }
+
+        this.moneyRecieptData = [...data];
+    }
+
+    handleInputValueChange(event) {
+        let name = event.target.name;
+        let index = event.currentTarget.dataset.index;
+        this.moneyRecieptData[index][name] = event.target.value;
+        console.log('Value  : ', event.target.value);
+    }
+
+    handleSubmit() {
+        this.isSpinner = true;
+        let data = JSON.parse(JSON.stringify(this.moneyRecieptData));
+        console.log('Save Data : ', data);
+
+        if (data.length == 0) {
+            return this.showNotification('No Record Found', 'Enter at least one record.', 'error');
+
+        }
+
+        let notValidRows = data.filter(item => {
+            if (this.isCustomer) {
+                return (/*!item.partner ||*/ !item.documentDate || !item.docNo || item.amount <= 0 || !item.financialInstrument || !item.docHeaderText || !item.accountBank);
+            }
+            return (/*!item.partner ||*/ !item.customer || !item.documentDate || !item.docNo || item.amount <= 0 || !item.financialInstrument || !item.docHeaderText || !item.accountBank);
+        });
+
+        console.log('notValidRows : ', notValidRows);
+        if (notValidRows.length) {
+            this.isSpinner = false;
+            return this.showNotification('Error', 'Some input is missing value, please enter a value.', 'error');
+
+        }
+        let moneyReciept = data.map(obj => {
+            let reciept = {
+                customerLokup: '',
+                docNo: obj.docNo,
+                paymentAmount: obj.amount,
+                remark: obj.remarks,
+                accountBank: obj.accountBank,
+                billingDate: obj.documentDate,
+                financialInstrument: obj.financialInstrument,
+                docHeaderText: obj.docHeaderText,
+                cuatomerName: '',
+                salesOrder: obj.salesOrder
+            };
+            if (this.isCustomer) {
+                reciept.cuatomerName = this.contactCustomerRecord.Account.Name;
+                reciept.customerLokup = this.contactCustomerRecord.AccountId;
+            } else {
+                reciept.cuatomerName = obj.customerLookupRef[0].title;
+                reciept.customerLokup = obj.customer;
+            }
+
+            if (this.isPartner || this.isCustomer) {
+                // reciept.ownerId = this.contactCustomerRecord.Account.OwnerId;
+                reciept.approvelStatus = 'Under Approval';
+            }
+            else if (this.isCam) {
+                reciept.approvelStatus = 'Approved';
+            }
+
+            return reciept;
+        });
+
+        console.log('data : ', data);
+        console.log('moneyReciept : ', moneyReciept);
+        this.submitMoneyReciept(moneyReciept);
+        //console.log('moneyReciept : ', moneyReciept);
+    }
+
+    submitMoneyReciept(moneyReciepts) {
+        console.log('submitMoneyReciept called', moneyReciepts);
+        let submitButton = this.template.querySelector('.submit');
+        submitButton.disabled = true;
+        this.isSpinner = true;
+        console.log('OUTPUT : ', JSON.stringify(moneyReciepts));
+        insertMoneyReciept({ moneyReciepts: JSON.stringify(moneyReciepts) }).then(result => {
+            console.log('Result', result);
+            if (result == 'SUCCESSED' && (this.isCustomer || this.isPartner)) {
+                this.showNotification('Success', 'Your money receipt has been submitted successfully.', 'success');
+                window.setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
+            } else if (this.isCam) {
+                this.showNotification('Success', 'Your money receipt has been approved successfully.', 'success');
+            }
+            else {
+                submitButton.disabled = false;
+                this.showNotification('Error', result, 'success');
+            }
+            this.isSpinner = false;
+        }).catch(error => {
+            console.error('Submit:', error);
+            submitButton.disabled = false;
+            this.isSpinner = false;
+            this.showNotification('Error', (error.body.message || error.message), 'error');
+        });
+    }
+
+    showNotification(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
+    }
+
+
+    get bankName() {
+        return [
+            { label: 'HDFC', value: 'HDFC' },
+            { label: 'ICICI', value: 'ICICI' },
+            { label: 'SBI', value: 'SBI' },
+            { label: 'Bank Of India', value: 'Bank Of India' },
+            { label: 'Punjab National Bank', value: 'Punjab National Bank' },
+            { label: 'Central Bank of India', value: 'Central Bank of India' },
+        ];
+    }
+
+    get financialInstruments() {
+        return [
+            { label: 'Advance', value: 'FI0' },
+            { label: 'CI', value: 'FI1' },
+            { label: 'LC', value: 'FI2' },
+            { label: 'BG', value: 'FI3' },
+            { label: 'Unsecured', value: 'FI4' }
+        ];
+    }
+
+}

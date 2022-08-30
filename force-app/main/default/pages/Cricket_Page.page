@@ -1,0 +1,18 @@
+<apex:page Controller="Cricket_Controller">
+    <apex:form >
+        <apex:pageBlock title="Student Table" >
+            
+            <apex:pageBlockTable value="{!cricketList}" var="cricket" > 
+               <!-- <apex:column >
+                	<input type ="checkbox" name = "{!Stu.Id}" value = "{!Stu.Id}"/>
+                </apex:column> -->
+                	<apex:column headerValue="Player Number"><apex:inputField value="{!cricket.Name}" /></apex:column>
+                    <apex:column headerValue="Player FirstName"><apex:inputField value="{!cricket.FirstName__c}" /></apex:column>
+                    <apex:column headerValue="Player LastName"><apex:inputField value="{!cricket.LastName__c}"  /></apex:column>
+                    <apex:column headerValue="Player Type"><apex:inputField value="{!cricket.Player_Type__c}" /></apex:column>
+            </apex:pageBlockTable>
+                 <apex:pageBlockButtons >
+            </apex:pageBlockButtons>
+        </apex:pageBlock>      
+    </apex:form>
+</apex:page>

@@ -1,0 +1,25 @@
+<apex:page controller="BookingController">
+    <apex:form >
+        <apex:pageBlock title="Booking Table" id="booking">
+            <apex:pageBlockTable value="{!bookings}" var="b" >
+                <apex:column headerValue="Action"> 
+                    <apex:commandButton value="Edit" action="{!edit}" immediate="true" reRender="booking"> &nbsp; &nbsp; 
+                        <apex:param name="bid" value="{!b.id}" assignTo="{!bid}"/>
+                    </apex:commandButton>&nbsp;&nbsp;|
+                    <apex:commandButton action="{!view}" value="view" reRender="booking">
+                        <apex:param name="bid" value="{!b.id}" assignTo="{!bid}" />
+                    </apex:commandButton>
+                </apex:column> 
+                <apex:column value="{!b.Name}" />
+                <apex:column value="{!b.Room__c}" />
+                <apex:column value="{!b.Customer__c}" />
+                <apex:column value="{!b.Status__c}" />
+                <apex:column value="{!b.Check_In__c}" />
+                <apex:column value="{!b.Check_Out_Time__c}" />
+                <apex:column value="{!b.Email__c}" />
+            </apex:pageBlockTable>
+            <apex:pageBlockButtons >
+            </apex:pageBlockButtons>
+        </apex:pageBlock>      
+    </apex:form>
+</apex:page>

@@ -1,0 +1,65 @@
+.short{
+    padding: 8px;
+}
+.btnchange{
+    color:blue; 
+    cursor: pointer;
+}
+.badge2{
+    padding: 4px;
+    margin-top: 5px;
+}
+.badges{
+    padding-top: 19px;
+    margin-top: 12px;
+}
+.table{
+    padding-top: 19px;
+    margin-top: 12px;
+}
+.category{
+    margin-bottom: 5px;
+}
+.btn-default{
+    color: #fff;
+    background: #e41414;
+    height: 32px;
+    width: 123px;
+    border-color: red;
+    border-radius: 8px;
+    font-size: 17px;
+    margin-top: 20px;
+    padding-top: 1px;
+    margin-left: 125px;
+}
+.btn{
+    /* padding-left: var(--sds-c-button-destructive-spacing-inline-start, var(--lwc-spacingMedium,1rem));
+    padding-right: var(--sds-c-button-destructive-spacing-inline-end, var(--lwc-spacingMedium,1rem));
+    text-align: center; */
+    /* vertical-align: middle; */
+    /* justify-content: center; */
+    /* transition: border 0.15s linear 0s; */
+    /* background-color: var(--sds-c-button-destructive-color-background, var(--lwc-colorBackgroundDestructive,rgb(194, 57, 52)));
+    border-color: var(--sds-c-button-destructive-color-border, var(--lwc-colorBackgroundDestructive,rgb(194, 57, 52)));
+    color: var(--sds-c-button-destructive-text-color, var(--lwc-colorTextInverse,#FFFFFF));
+    width: 100%; */
+    margin-left: 120px;
+    padding-top: 3px;
+    margin-top: 20px;
+    margin-top: 20px;
+}
+
+.image-poster{
+    height: 5rem !important; 
+    width:5rem !important;
+}
+.movie-details{
+    padding-top: 17px;
+    font-size: 15px;
+    color: rgb(33 119 193);
+}
+.movie-time{
+    margin-left: -1px;
+    margin-top: 40px;
+    font-size: 13px;
+}

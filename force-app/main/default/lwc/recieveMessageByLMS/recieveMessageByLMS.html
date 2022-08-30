@@ -1,0 +1,15 @@
+<template>
+    <lightning-card variant="Narrow" title="Hello" icon-name="standard:account">
+        <lightning-button-icon icon-name="utility:down" variant="border-filled" alternative-text="Show More"
+            slot="actions"></lightning-button-icon>
+        <p class="slds-p-horizontal_small">{recieveData}</p>
+        <p slot="footer">Card Footer</p>
+
+
+        <lightning-textarea data-id=username name="inputname" label="Enter some text" placeholder="type here..."
+            value="">
+        </lightning-textarea>
+
+        <lightning-button variant="brand" label="labelName" title="titleName" onclick={handleClick}></lightning-button>
+    </lightning-card>
+</template>

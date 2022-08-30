@@ -1,0 +1,20 @@
+<template>
+    <div class="slds-m-around-medium">
+    <lightning-card >  
+        <div class="slds-m-around-large">
+        <lightning-input type="number" name="number" label="Number 1" value={firstNumber} onchange={onChangeNumberOne}></lightning-input>
+        <lightning-input type="number" name="number" label="Number 2" value={secondNumber} onchange={onChangeNumbertwo}></lightning-input>
+        <br/>
+  
+        <lightning-button label="Addition" onclick={addition}> </lightning-button> &nbsp;&nbsp;
+        <lightning-button label="Multification" onclick={multification}> </lightning-button>  &nbsp;&nbsp;
+        <lightning-button label="Subtraction" onclick={subtraction}> </lightning-button>  &nbsp;&nbsp;
+        <lightning-button label="Divison" onclick={division}> </lightning-button>  &nbsp;&nbsp;
+        <lightning-button label="Mode" onclick={mode}> </lightning-button>
+        <br/><br/>
+        <b>Result is : </b>
+        <p>{resultValue}</p>
+    </div>
+    </lightning-card>
+</div>
+</template>

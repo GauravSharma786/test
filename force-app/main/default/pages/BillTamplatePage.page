@@ -1,0 +1,48 @@
+<apex:page standardStylesheets="false"
+           applyHtmlTag="false" showHeader="false" controller="InvoiceController">
+    <apex:form >
+    <style type="text/css">
+        .image{
+        	margin-left:130px;
+        margin-top:20px;
+        }
+        .header{
+        	margin-right:130px;
+        }
+    </style>
+    <apex:pageBlock >
+    <div class="image">
+        <apex:image url="{!$Resource.StaticPhoto}" height="100px" width="100px" style="float:left;"/>
+        <div class="header">
+            <lable style="margin-left:100px;font-size:18px;color:blue;">Welcome To The iBirds Hotel</lable>
+            <span style="float:right">
+                <b>Address: </b><br/>
+                Hotel Address<br/>
+                M 15 Ana Sagar Link Road<br/>
+                Near City Hospital Ajmer,<br/>
+                Rajasthan (India)
+            </span>
+        </div>
+        <div class="header2"  style="margin-top:100px; margin-left:10px;">
+            <span>
+                <b>Invoice:</b><br/>
+                <b>Clint Name : {!clintName}</b><br/>
+                <b>Address : {!address}</b><br/>
+                 <b>{!phoneNumber}</b><br/>
+                <hr/>
+            </span>
+        </div>
+        <div style="margin-top:35px; margin-left:10px;" >
+            <table border="2px" cellpadding="5px" cellspacing="5px" width="100%">
+                <tr>
+                	<th>Room no.</th>
+                    <th>Room no.</th>
+                    <th>Room no.</th>
+                </tr>
+            </table>
+        </div>
+        </div>
+        <apex:commandButton value="Download" action="download"/>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

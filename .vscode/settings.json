@@ -3,5 +3,29 @@
     "**/node_modules": true,
     "**/bower_components": true,
     "**/.sfdx": true
-  }
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#a0cdc3",
+    "activityBar.activeBorder": "#a36db2",
+    "activityBar.background": "#a0cdc3",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#a36db2",
+    "activityBarBadge.foreground": "#15202b",
+    "sash.hoverBorder": "#a0cdc3",
+    "statusBar.background": "#7fbbae",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#5ea999",
+    "statusBarItem.remoteBackground": "#7fbbae",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#7fbbae",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#7fbbae99",
+    "titleBar.inactiveForeground": "#15202b99",
+    "commandCenter.border": "#15202b99"
+  },
+  "peacock.color": "#7fbbae",
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "diffEditor.codeLens": true
 }

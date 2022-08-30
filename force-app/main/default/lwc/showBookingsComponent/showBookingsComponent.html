@@ -1,0 +1,133 @@
+<template>
+	<lightning-card if:true={movieObj}>
+		<div class="short">
+			<lightning-input if:false={currentUser} type="text" icon-name="standard:opportunity" value={searchValue}
+				label="Customer" placeholder="Search" onchange={searchKeyword}></lightning-input>
+			<hr />
+			<!-- With an avatar -->
+			<!-- <template for:each={movieObj} for:item="obj"> -->
+			<div class="slds-m-around_small">
+				<lightning-layout>
+					<lightning-layout-item size="4">
+						<img alt="" src={movieObj.image} class="image-poster" />
+					</lightning-layout-item>
+					<lightning-layout-item size="4">
+						<div>
+							<b>
+								<p class="movie-details">{movieObj.Name}</p>
+							</b>
+							<lightning-formatted-date-time value={movieObj.Show_StartTime__c} hour="2-digit"
+								minute="2-digit" time-zone="UTC" time-zone-name="short" class="movie-time">
+							</lightning-formatted-date-time>
+						</div>
+					</lightning-layout-item>
+					<lightning-layout-item size="4">
+						<div class="movie-time"><a class="movie-time" href="#" onclick={navigateToWebPage}>Change</a>
+						</div>
+					</lightning-layout-item>
+				</lightning-layout>
+			</div>
+			<!-- </template> -->
+
+			<hr />
+			<div>
+				<lightning-input type="date" icon-name="standard:opportunity" label="Select Movie Date"
+					placeholder="Date" onchange={checkDate} value={todayDate}></lightning-input>
+			</div>
+			<div class="slds-box badges details">
+				<div class="badge" if:true={selectedSeatsWithCategory}>
+					<!-- GOLD -->
+					<template if:true={selectedSeatsWithCategory.Gold}>
+						<span class="slds-badge slds-theme_warning category">GOLD</span>
+						<template for:each={selectedSeatsWithCategory.Gold} for:item="seatobj">
+							<span key={seatobj.id} class="slds-badge">{seatobj.name}</span>
+						</template>
+					</template>
+					<!-- Bronze -->
+					</br>
+					<template if:true={selectedSeatsWithCategory.Bronze}>
+						<span class="slds-badge slds-badge_inverse category">Bronze</span>
+						<template for:each={selectedSeatsWithCategory.Bronze} for:item="seatobj">
+							<span key={seatobj.id} class="slds-badge ">{seatobj.name}</span>
+						</template>
+					</template>
+
+					<!-- Silver -->
+					</br>
+					<template if:true={selectedSeatsWithCategory.Silver}>
+						<span class="slds-badge slds-theme_success category">Silver</span>
+						<template for:each={selectedSeatsWithCategory.Silver} for:item="seatobj">
+							<span key={seatobj.id} class="slds-badge">{seatobj.name}</span>
+						</template>
+					</template>
+
+					<!-- Platinum -->
+					</br>
+					<template if:true={selectedSeatsWithCategory.Platinum}>
+						<span class="slds-badge">Platinum</span>
+						<template for:each={selectedSeatsWithCategory.Platinum} for:item="seatobj">
+							<span key={seatobj.id} class="slds-badge category">{seatobj.name}</span>
+						</template>
+					</template>
+				</div>
+			</div>
+
+			<div class="slds-box table">
+				<p>Amount Details</p>
+				<table class="slds-table slds-table_cell-buffer slds-table_bordered">
+					<thead>
+						<tr class="slds-line-height_reset">
+							<th class="" scope="col">
+								<div class="slds-truncate" title="Opportunity Name">Type</div>
+							</th>
+							<th class="" scope="col">
+								<div class="slds-truncate" title="Opportunity Name">Price</div>
+							</th>
+							<th class="" scope="col">
+								<div class="slds-truncate" title="Opportunity Name">Seat</div>
+							</th>
+							<th class="" scope="col">
+								<div class="slds-truncate" title="Amount">Amount</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<template if:true={seatDetails} for:each={seatDetails} for:item="seat">
+							<tr class="slds-hint-parent" key={seat.type}>
+								<th data-label="Type" scope="row">
+									<div class="slds-truncate" title="Type">
+										<p>{seat.type}</p>
+									</div>
+								</th>
+								<td data-label="Price">
+									<div class="slds-truncate" title="Price">{seat.price}</div>
+								</td>
+								<td data-label="Seat">
+									<div class="slds-truncate" title="Seat">{seat.seatCount}</div>
+									<!-- <div class="slds-truncate" title="Seat">{seat.totalAmount}</div> -->
+								</td>
+								<td data-label="Amount">
+									<div class="slds-truncate" title="Amount">{seat.amount}</div>
+									<!-- <div class="slds-truncate" title="Seat">{seat.totalAmount}</div> -->
+								</td>
+							</tr>
+						</template>
+						<tr>
+							<td colspan="3">Total Amount</td>
+							<td>{totalAmount}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- <lightning-button variant="destructive" label="CheckOut" title="Destructive action"
+				class="btn">
+			</lightning-button> -->
+			<button class="btn-default" onclick={handleClick}>Checkout</button>
+		</div>
+	</lightning-card>
+</template>
+<!-- <div class="badge2">
+            <span class="slds-badge slds-badge_inverse" style="margin-left: 6px;">Silver</span>
+            <span class="slds-badge" style="margin-left: 13px;">2</span>
+        </div> -->

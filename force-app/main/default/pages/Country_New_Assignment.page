@@ -1,0 +1,22 @@
+<apex:page controller="Country_New_Controller">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageMessages />
+            <apex:sectionHeader title="Country" subtitle="New/Edit Page"/>
+            <apex:pageBlockSection collapsible="false">
+                <apex:inputField value="{!country.Name}"/>
+                <apex:inputField value="{!country.State__c}"/>
+                <apex:inputField value="{!country.City__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+         <apex:pageBlock >
+            <apex:pageMessages />
+            <apex:sectionHeader title="Country" subtitle="New/Edit Page"/>
+            <apex:pageBlockSection collapsible="false">
+                <apex:inputField value="{!country.Name}"/>
+                <apex:inputField value="{!country.State__c}"/>
+                <apex:inputField value="{!country.City__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

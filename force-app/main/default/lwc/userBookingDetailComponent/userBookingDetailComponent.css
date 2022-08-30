@@ -1,0 +1,11 @@
+.btn-default{
+    cursor: pointer;
+    padding-top: -3px;
+    height: 29px;
+    margin-top: 20px;
+    background-color: #cee4d8;
+    border-color: #faffff;
+    font-size: 15px;
+    color: #231f1e;
+    border-radius: 10px;
+}

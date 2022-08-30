@@ -1,0 +1,13 @@
+<template>
+  <div style="height: 100px; width: 300px">
+    <lightning-input
+      label="%"
+      type="number"
+      placeholder="enter a number"
+      max-length="3"
+      max="100"
+      onchange={handleChange}
+    ></lightning-input>
+    <p>{error}</p>
+  </div>
+</template>

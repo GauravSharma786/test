@@ -1,0 +1,13 @@
+<apex:page controller="AccountFieldSetController" tabStyle="Account">
+  <apex:form >
+      <apex:sectionHeader title="Account"/>
+      <apex:pageblock >        
+             <apex:pageBlockTable value="{!accList}" var="acc">
+                 <apex:repeat value="{!$ObjectType.Account.fieldsets.AccountFieldSet}" var="fieldValue">
+                     <apex:column value="{!acc[fieldValue]}">
+                     </apex:column>
+                 </apex:repeat>
+             </apex:pageBlockTable>
+      </apex:pageblock>
+    </apex:form>
+</apex:page>

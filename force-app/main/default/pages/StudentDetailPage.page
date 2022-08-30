@@ -1,0 +1,17 @@
+<apex:page Controller="StudentControler">
+    <apex:form >
+        <apex:pageBlock title="Student Detail">
+            <apex:pageBlockSection title="Student Details">
+                <apex:inputField value="{!student.Name}"/>
+                <apex:inputField value="{!student.Gender__c}"/>
+                <apex:inputField value="{!student.DOB__c}"/>
+                <apex:inputField value="{!student.Email__c}"/>
+                <apex:inputField value="{!student.Class__c}"/>
+                <apex:inputField value="{!student.Age__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                 <apex:commandButton action="{!save}" value="Save"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

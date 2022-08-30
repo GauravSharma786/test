@@ -1,0 +1,126 @@
+<template>
+    <div class="btn">
+        <lightning-button variant="brand" label="Add Account" title="Select Field" onclick={handleClick}>
+        </lightning-button>
+    </div>
+    <lightning-card>
+        <div class="indicators">
+            <div class="indicator-avaiable"></div>
+            <p class="text">Level 1</p>
+            <div class="indicator-booked"></div>
+            <p class="text">Level 2</p>
+            <div class="indicator-selected"></div>
+            <p class="text">level 3</p>
+            <div class="indicator-selected2"></div>
+            <p class="text">level 4</p>
+        </div>
+    </lightning-card>
+    <template for:each={mainList} for:item="items" for:index="index">
+        <lightning-card key={items.id}>
+            <h3 slot="title">
+                <lightning-icon icon-name="standard:timesheet" alternative-text="Event" size="small"></lightning-icon>
+                &nbsp;Hierarchy Relationship
+            </h3>
+            <!-- For Add Account Object Details  -->
+            <template for:each={items.accountList} for:item="item" for:index="index">
+                <div class="slds-grid slds-wrap" key={item.id}>
+                    <div class="slds-col slds-size_1-of-6">
+                        <span>
+                            <lightning-input type="text" icon-name="utility:search" name="accountName"
+                                label="Account Name" value={item.accountName} data-parentid={items.id}
+                                data-accountindex={item.id} onchange={handleChange}>
+                            </lightning-input>
+                        </span>
+                    </div>&nbsp;
+                    <div class="slds-col slds-size_1-of-6">
+                        <span>
+                            <lightning-input type="text" icon-name="utility:search" name="accountPhone"
+                                onchange={handleChange} value={item.accountPhone} data-parentid={items.id}
+                                data-accountindex={item.id} label="Phone"></lightning-input>
+                        </span>
+                    </div>&nbsp;
+                    <div class="slds-col slds-size_1-of-6">
+                        <span>
+                            <lightning-input type="text" icon-name="utility:search" name="accountAddress"
+                                label="Address" value={item.accountAddress} data-parentid={items.id}
+                                data-accountindex={item.id} onchange={handleChange}></lightning-input>
+                        </span>
+                    </div>&nbsp;
+                    <div class="slds-col slds-size_1-of-6">
+                        <span>
+                            <lightning-input type="text" icon-name="utility:search" name="accountDescription"
+                                label="Description" value={item.accountDescription} data-parentid={items.id}
+                                data-accountindex={item.id} onchange={handleChange}></lightning-input>
+                        </span>
+                    </div>&nbsp;
+                    <div class="slds-col slds-size_1-of-6">
+                        <span>
+                            <div class="slds-p-top_medium">
+                                <lightning-icon icon-name="action:new" access-key={items.id} id={index}
+                                    alternative-text="Add Row" size="x-small" title="Add Account" onclick={addRow}>
+                                </lightning-icon>
+                                <lightning-icon icon-name="action:delete" access-key={items.id} id={index}
+                                    name={item.id} alternative-text="Delete Row" size="x-small" title="Delete Row"
+                                    onclick={removeRow}>
+                                </lightning-icon>
+                                <lightning-icon icon-name="action:new" access-key={items.id} id={index} name={item.id}
+                                    alternative-text="Add Contact" size="x-small" title="Add Contact"
+                                    onclick={addContact}>
+                                </lightning-icon>
+                            </div>
+                        </span>
+                    </div>&nbsp;
+                    <div class="slds-col slds-size_1-of-6">
+                        <span>
+                        </span>
+                    </div>
+                    <!-- For Add Contact Object Details  -->
+                    <div if:true={item.contactList}>
+                        <template for:each={item.contactList} for:item="contact" for:index="index">
+                            <div class="slds-grid slds-wrap" key={contact.id}>
+                                <div class="slds-col slds-size_1-of-6">
+                                    <span>
+                                        <lightning-input type="text" icon-name="utility:search" data-id="firstName"
+                                            label="Contact FirstName" onchange={handleChange}></lightning-input>
+                                    </span>
+                                </div>&nbsp;
+                                <div class="slds-col slds-size_1-of-6">
+                                    <span>
+                                        <lightning-input type="text" icon-name="utility:search" label="Contact LastName"
+                                            data-id="lastName" onchange={handleChange}></lightning-input>
+                                    </span>
+                                </div>&nbsp;
+                                <div class="slds-col slds-size_1-of-6">
+                                    <span>
+                                        <lightning-input type="text" icon-name="utility:search" data-id="contactPhone"
+                                            label="Phone" onchange={handleChange}></lightning-input>
+                                    </span>
+                                </div>&nbsp;
+                                <div class="slds-col slds-size_1-of-6">
+                                    <span>
+                                        <lightning-input type="text" icon-name="utility:search" data-id="email"
+                                            label="Email" onchange={handleChange}></lightning-input>
+                                    </span>
+                                </div>&nbsp;
+                                <div class="slds-col slds-size_1-of-6">
+                                    <span>
+                                        <div class="slds-p-top_medium">
+                                            <lightning-icon icon-name="action:delete" name={item.id}
+                                                access-key={items.id} id={index} alternative-text={contact.id}
+                                                size="x-small" title="Delete Row" onclick={removeContactRow}>
+                                            </lightning-icon>
+                                        </div>
+                                    </span>
+                                </div>&nbsp;
+                                <div class="slds-col slds-size_1-of-6">
+                                    <span>
+                                    </span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </lightning-card>
+    </template>
+</template>

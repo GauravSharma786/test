@@ -1,0 +1,116 @@
+<apex:page controller="Attachment_Tab_Controller">
+    <apex:form id="loadList">
+        <apex:actionFunction action="{!showObjectList}" reRender="loadList" name="showObjectList" status="loadstatus"/>
+        <!-- <apex:actionFunction action="{!showRecordList}" reRender="loadList" name="showRecordList" status="loadstatus" />-->
+        <apex:actionFunction name="allSelectedAttachments" action="{!allSelectedAttachments}" reRender="loadList"/>
+        <apex:actionFunction name="selectedAttachment" action="{!selectedAttachment}" reRender="loadList"/>
+         <apex:actionFunction name="selectAllRecords" action="{!selectAllRecords}" reRender="loadList"/>
+        <apex:actionFunction name="selectedRecord" action="{!selectedRecord}" reRender="loadList"/>
+       
+        <apex:pageBlock >
+            Objects:
+            <apex:selectList size="1" value="{!selectedAttachmentObject}" onchange="showObjectList();">
+                <apex:selectOptions value="{!objectOptions}"></apex:selectOptions>
+            </apex:selectList>
+        </apex:pageBlock>      
+        <apex:actionStatus id="loadstatus" startText="Please Wait..." startStyle="color:red; font-size:16px;"/>
+        <apex:pageBlock rendered="{!attachmenRecordList.size > 0}">
+            
+            <div Style="overflow:scroll; width:100; height:480px;">
+                <apex:pageMessages />
+                <apex:PageBlockTable value="{!attachmenRecordList}" var="attachmentmodel">
+                    <apex:column headerValue="Select">
+                        <apex:facet name="header">
+                            <apex:inputCheckbox value="{!allChecked}" onClick="allSelectedAttachments();"/>
+                        </apex:facet>
+                        <apex:inputCheckbox value="{!attachmentmodel.isChecked}" onClick="selectedAttachment();"/>
+                    </apex:column>
+                     <apex:column headerValue="Attachment Name">
+                        <apex:outputField value="{!attachmentmodel.attachment.Name}"/>
+                    </apex:column>
+                    <apex:column headerValue="Content Type">
+                        <apex:outputField value="{!attachmentmodel.attachment.contentType}"/>
+                    </apex:column>
+                    <apex:column headerValue="Attachment">
+                        <a href="/servlet/servlet.FileDownload?file={!attachmentmodel.attachment.Id}" target="_blank">
+                        <apex:image url="/servlet/servlet.FileDownload?file={!attachmentmodel.attachment.Id}" height="50px" width="50px"
+                                    rendered="{!CONTAINS(attachmentmodel.attachment.ContentType,'image/') && !isBlank(attachmentmodel.attachment.ContentType)}" />
+                        <apex:image url="{!$Resource.File_Icon}" height="50px" width="50px"
+                                    rendered="{!CONTAINS(attachmentmodel.attachment.ContentType,'text/') && !isBlank(attachmentmodel.attachment.ContentType)}" />
+                        <apex:image url="{!$Resource.Word_File_Icon}" height="50px" width="50px"
+                                    rendered="{!CONTAINS(attachmentmodel.attachment.ContentType,'word') && !isBlank(attachmentmodel.attachment.ContentType)}" />
+                         <apex:image url="{!$Resource.Exel_File_Icon}" height="50px" width="50px"
+                                    rendered="{!CONTAINS(attachmentmodel.attachment.ContentType,'spreadsheetml') && !isBlank(attachmentmodel.attachment.ContentType)}" />
+                        <apex:image url="{!$Resource.StaticPhoto}" height="50px" width="50px"
+                                    rendered="{!isBlank(attachmentmodel.attachment.ContentType)}" />
+                        </a>
+                    </apex:column>
+                </apex:PageBlockTable>
+            </div>
+            <apex:PageBlockButtons >
+                <apex:commandButton value="Copy To" action="{!copy}" reRender="loadList" status="loadstatus" />
+            </apex:PageBlockButtons>
+        </apex:pageBlock>
+        <apex:outputPanel id="tstpopup">
+            <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!hasShowRecord}"/>
+            <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!hasShowRecord}">
+                
+                <apex:pageBlock >
+                    <apex:actionStatus id="status" startText="Please Wait..." startStyle="color:red; font-size:16px;"/>
+                    Records Object :
+                    <apex:selectList size="1" value="{!selectedRecordObject}" > <!--onchange="showRecordList();"-->
+                        <apex:selectOptions value="{!objectOptions}"></apex:selectOptions>
+                    </apex:selectList>
+                    Name: <apex:inputText value="{!searchedName}"/>  
+                    <apex:commandButton value="Search" action="{!search}"  rerender="tstpopup" status="status"/> 
+                    <apex:commandButton value="Cancel" action="{!back}"  rerender="tstpopup" status="status"/>
+                </apex:pageBlock>
+                
+                <apex:pageBlock rendered="{!objectRecordList.size > 0}">
+                    <apex:pageBlockTable value="{!objectRecordList}" var="attach">
+                        <apex:column headerValue="Select">
+                             <apex:facet name="header">
+                            <apex:inputCheckbox value="{!allSelected}" onClick="selectAllRecords();"/>
+                        </apex:facet>
+                            <apex:inputCheckbox value="{!attach.isSelected}" onClick="selectedRecord();" />
+                        </apex:column>
+                         <apex:column headerValue="Preview">
+                           <apex:commandLink action="/{!attach.recordId}" value="Preview"/>
+                        </apex:column>
+                        <apex:column headerValue="Name" value="{!attach.recordName}"/>
+                    </apex:pageBlockTable>
+                    <apex:PageBlockButtons >
+                        <apex:commandButton value="Merge" action="{!save}"  rerender="tstpopup"/>
+                    </apex:PageBlockButtons>
+                </apex:pageBlock>
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:form>
+    <style type="text/css">
+        .custPopup{
+        background-color: white;
+        overflow : scroll;
+        border-width: 2px;
+        border-style: solid;
+        z-index: 9999;
+        padding:10px;
+        position: absolute;
+        width: 70%;
+        height : 83%;
+        margin-left : 200px;
+        top:12%;
+        }
+        .popupBackground{
+        overflow : scroll;
+        background-color:rgba(0,0,0,0.4);
+        opacity: 0.5;
+        position: absolute;
+        width: 100%;   
+        height: 100%;  
+        top: 0;
+        left: 0;
+        z-index: 9998;
+        }
+        
+    </style>
+</apex:page>

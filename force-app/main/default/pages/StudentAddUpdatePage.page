@@ -1,0 +1,18 @@
+<apex:page Controller="StudentAddUpdateController" >
+    <apex:form >
+        <apex:pageBlock title="Student Form">
+            <apex:pageMessages />
+            <apex:pageBlockTable value="{!students}" var="stu">
+              <apex:column headerValue="Student Name"><apex:inputField value="{!stu.Name}"/></apex:column>
+                <apex:column headerValue="Class"><apex:inputField value="{!stu.Class__c}"/></apex:column>
+                <apex:column headerValue="Date Of Birth"><apex:inputField value="{!stu.DOB__c}"/></apex:column>
+                <apex:column headerValue="Email Id"><apex:inputField value="{!stu.Email__c}"/></apex:column>
+            </apex:pageBlockTable>  
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save" />
+                <apex:commandButton action="{!deleteRecord}" value="Delete" immediate="true"/>
+                <apex:commandButton action="{!addRow}" value="Add Row"  immediate="true"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

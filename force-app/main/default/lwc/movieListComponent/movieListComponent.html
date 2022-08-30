@@ -1,0 +1,24 @@
+<template>
+    <lightning-card>
+        <lightning-layout multiple-rows if:true={allMovies}>
+            <template for:each={allMovies} for:item="obj">
+                <lightning-layout-item padding="around-medium " size="12" small-device-size="6" medium-device-size="6"
+                    large-device-size="4" key={obj.Id}>
+                    <div class="custom-boxs">
+                        <div><img src={obj.imageurl} class="slds-align--absolute-center image-poster" /></div>
+                        <div>
+                            <b style="font-size: 17px;">{obj.movie.Name}</b>
+                            <div>
+                                <lightning-formatted-date-time value={obj.movie.Show_StartTime__c} hour="2-digit"
+                                    minute="2-digit" time-zone="UTC" time-zone-name="short">
+                                </lightning-formatted-date-time>
+                            </div>
+                        </div>
+                        <lightning-button data-id={obj.movie.Id} data-movieposterid={obj.movieId} variant="brand"
+                            label="Book Now" title="Select Field" onclick={navigateToWebPage}></lightning-button>
+                    </div>
+                </lightning-layout-item>
+            </template>
+        </lightning-layout>
+    </lightning-card>
+</template>

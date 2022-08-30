@@ -1,0 +1,33 @@
+<apex:page controller="ContactInnerClassController">
+  <apex:sectionHeader title="Visualforce Example" subtitle="File Upload Example"/>
+
+  <apex:form enctype="multipart/form-data">
+    <apex:pageMessages />
+    <apex:pageBlock title="Upload a File">
+
+      <apex:pageBlockButtons >
+        <apex:commandButton action="{!upload}" value="Upload"/>
+      </apex:pageBlockButtons>
+
+      <apex:pageBlockSection showHeader="false" columns="2">
+
+     <!--   <apex:pageBlockSectionItem >
+          <apex:outputLabel value="File Name" />
+          <apex:inputText value="{!attachment.name}" />
+        </apex:pageBlockSectionItem> -->
+
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="File" />
+          <apex:inputFile value="{!attachment.body}" filename="{!attachment.name}" contentType="{!attachment.contentType}" />
+        </apex:pageBlockSectionItem>
+
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Description" />
+          <apex:inputTextarea value="{!attachment.description}" />
+        </apex:pageBlockSectionItem>
+
+      </apex:pageBlockSection>
+
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

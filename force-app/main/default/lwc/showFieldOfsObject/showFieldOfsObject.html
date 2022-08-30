@@ -1,0 +1,10 @@
+<template>
+    {sObjectName}
+    <template if:true={sObjectName}>
+        <lightning-card>
+            <lightning-dual-listbox name="fields" label="Select Fields" source-label="Available"
+                selected-label="Selected" options={fieldsOfObject} value={_selected} onchange={handleChange}>
+            </lightning-dual-listbox>
+        </lightning-card>
+    </template>
+</template>

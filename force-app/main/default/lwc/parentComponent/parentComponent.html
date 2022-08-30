@@ -1,0 +1,24 @@
+<template>
+    
+        <p>This Is Parent Component</p>
+
+    <c-child-component></c-child-component>
+    <lightning-button label="Click" onclick={handleClick} ></lightning-button>&nbsp;&nbsp;
+    <br/><br/>
+   
+    <lightning-card title ="List View ">  
+          <ul class="slds-has-dividers_around-space">
+        <template for:each={personArr} for:item="person">
+            <li class="slds-item" key={person}>{person}</li>
+    </template>
+    </ul>
+    </lightning-card>
+
+    <lightning-card title ="Convert to Array">  
+      <template for:each={person} for:item="personobj">
+        <div class="inner" key={personobj}>{personobj}</div>
+  </template>
+  </lightning-card>
+  <div class ="mydiv" lwc:dom="manual" ></div>
+
+</template>

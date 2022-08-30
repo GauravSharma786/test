@@ -1,0 +1,66 @@
+<apex:page controller="CourseInnerClassController" id="pg">
+    <apex:pageMessages ></apex:pageMessages>
+    <apex:form id="frm">
+        <apex:actionFunction name="makeEditableRow" action="{!makeEditableRow}" reRender="loadList"/>
+        <apex:actionFunction name="makeAllEditableRow" action="{!makeAllEditableRow}" reRender="loadList"/>
+        <apex:actionFunction name="makeClone" action="{!makeCloned}" reRender="frm">
+            <apex:param name="cid" value="" assignTo="{!courseid}"/>
+        </apex:actionFunction>
+        <apex:pageBlock rendered="{!cloneForm}"> 
+            <apex:pageBlockSection >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Course Name"/>
+                    <apex:inputField value="{!course.Course_Name__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Course Fees"/>
+                    <apex:inputField value="{!course.Fees__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Course Time Period"/>
+                    <apex:inputField value="{!course.Time_Period__c}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save Record" action="{!saveRecord}"/>
+                <apex:commandButton value="Cancel" action="{!cancelRecord}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        <apex:pageBlock title="Course Table" id="loadList">
+            <apex:pageBlockTable value="{!courses}" var="cm">
+                <apex:column headerValue="S.N">
+                    <apex:outputText value="{!cm.srNo}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">
+                        <apex:inputCheckbox value="{!allChecked}" onClick="makeAllEditableRow();"/>
+                    </apex:facet>
+                    <apex:inputCheckbox value="{!cm.isChecked}" onClick="makeEditableRow();"/>
+                </apex:column>
+                <apex:column >
+                    <apex:commandLink value="Delete" action="{!deleteRecord}" immediate="true" reRender="loadList">
+                        <apex:param name="cid" value="{!cm.course.id}" assignTo="{!cid}"/>
+                    </apex:commandLink> 
+                </apex:column>
+                <apex:column >
+                    <apex:commandLink value="Clone" onClick="makeClone('{!cm.course.id}');" reRender="None"/>
+                </apex:column>
+                <apex:column headerValue="Course Name ">
+                    <apex:outputField rendered="{!!cm.isChecked}" value="{!cm.course.Course_Name__c}"/>
+                    <apex:inputField rendered="{!cm.isChecked}" value="{!cm.course.Course_Name__c}"/>
+                </apex:column>
+                <apex:column headerValue="Course Fees">
+                    <apex:outputField rendered="{!!cm.isChecked}" value="{!cm.course.Fees__c}"/>
+                    <apex:inputField rendered="{!cm.isChecked}" value="{!cm.course.Fees__c}"/>
+                </apex:column>
+                <apex:column headerValue="Course Time">
+                    <apex:outputField rendered="{!!cm.isChecked}" value="{!cm.course.Time_Period__c}"/>
+                    <apex:inputField rendered="{!cm.isChecked}" value="{!cm.course.Time_Period__c}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>      
+    </apex:form>
+</apex:page>

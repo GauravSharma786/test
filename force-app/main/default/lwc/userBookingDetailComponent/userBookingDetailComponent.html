@@ -1,0 +1,491 @@
+<template>
+    <lightning-accordion if:true={bookingStages} class="example-accordion" onsectiontoggle={handleToggleSection}
+        active-section-name="A">
+        <lightning-accordion-section if:true={bookingStages.Upcoming} name="A" label="Upcomming Show">
+            <ul class="slds-timeline">
+                <template for:each={bookingStages.Upcoming} for:item="bookingStageObj">
+                    <li key={bookingStageObj.id}>
+                        <div class="slds-timeline__item_expandable slds-timeline__item_task slds-is-open">
+                            <div class="slds-media">
+                                <div class="slds-media__figure">
+                                    <button class="slds-button slds-button_icon">
+                                        <svg class="slds-button__icon slds-timeline__details-action-icon"
+                                            aria-hidden="true">
+                                            <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#switch"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="slds-icon_container slds-icon-standard-task slds-timeline__icon"
+                                        title="task">
+                                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                            <use xlink:href="/_slds/icons/standard-sprite/svg/symbols.svg#task"></use>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div class="slds-media__body">
+                                    <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                        <div
+                                            class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+
+                                            <h3 class="slds-truncate"
+                                                title="Review proposals for EBC deck with larger team and have marketing review this">
+                                                <a href="#">
+                                                    <strong>{bookingStageObj.movieName}</strong>
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                            <p class="slds-timeline__date">
+                                                <lightning-formatted-date-time value={bookingStageObj.movieTime}
+                                                    hour="2-digit" minute="2-digit" time-zone="UTC"
+                                                    time-zone-name="short">
+                                                </lightning-formatted-date-time> | {bookingStageObj.movieDate}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <p class="slds-m-horizontal_xx-small">
+                                        <a>You</a> Booked {bookingStageObj.totalSeatsCount} Seats.
+                                        <!-- <a>Charlie Gomez</a> -->
+                                    </p>
+                                    <article
+                                        class="slds-box slds-timeline__item_details slds-theme_shade slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
+                                        aria-hidden="false">
+                                        <ul class="slds-list_horizontal slds-wrap">
+                                            <li
+                                                class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                                                <span class="slds-text-title slds-p-bottom_x-small">Category</span>
+                                                <span if:true={bookingStageObj.bookingLineItems}
+                                                    class="slds-text-body_medium slds-truncate" title="Charlie Gomez">
+                                                    <p if:true={bookingStageObj.bookingLineItems.Gold}>Gold</p><br />
+                                                    <p if:true={bookingStageObj.bookingLineItems.Platinum}>Platinum</p>
+                                                    <br />
+                                                    <p if:true={bookingStageObj.bookingLineItems.Silver}>Silver</p>
+                                                    <br />
+                                                    <p if:true={bookingStageObj.bookingLineItems.Bronze}>Bronze</p>
+                                                    <br />
+                                                    <!-- <a>Charlie Gomez</a> -->
+                                                </span>
+                                            </li>
+                                            <li
+                                                class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                                                <span class="slds-text-title slds-p-bottom_x-small">Seat No#</span>
+                                                <div class="badges details">
+                                                    <div class="badge">
+                                                        <template for:each={bookingStageObj.bookingLineItems.Gold}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <!-- <span key={bookingStageSeatObj.Id} key={seatobj.id} class="slds-badge ">{seatobj.name}</span> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template> <br>
+                                                        <template for:each={bookingStageObj.bookingLineItems.Platinum}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template> <br>
+                                                        <template for:each={bookingStageObj.bookingLineItems.Silver}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template> <br>
+                                                        <template for:each={bookingStageObj.bookingLineItems.Bronze}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template><br>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div>
+                                            <span class="slds-text-title">Paid Amount /-</span>
+                                            <p class="slds-p-top_x-small">{bookingStageObj.totalAmount}</p>
+                                        </div>
+                                        <button class="btn-default" onclick={handleBookingCancelClick}
+                                            data-id={bookingStageObj.id}>Cancel Booking</button>
+                                    </article>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+
+        </lightning-accordion-section>
+        <lightning-accordion-section if:true={bookingStages.InProgress} name="b" label="On-Going Show">
+            <ul class="slds-timeline">
+                <template for:each={bookingStages.InProgress} for:item="bookingStageObj">
+                    <li key={bookingStageObj.id}>
+                        <div class="slds-timeline__item_expandable slds-timeline__item_task slds-is-open">
+                            <div class="slds-media">
+                                <div class="slds-media__figure">
+                                    <button class="slds-button slds-button_icon">
+                                        <svg class="slds-button__icon slds-timeline__details-action-icon"
+                                            aria-hidden="true">
+                                            <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#switch"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="slds-icon_container slds-icon-standard-task slds-timeline__icon"
+                                        title="task">
+                                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                            <use xlink:href="/_slds/icons/standard-sprite/svg/symbols.svg#task"></use>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div class="slds-media__body">
+                                    <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                        <div
+                                            class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+
+                                            <h3 class="slds-truncate"
+                                                title="Review proposals for EBC deck with larger team and have marketing review this">
+                                                <a href="#">
+                                                    <strong>{bookingStageObj.movieName}</strong>
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                            <p class="slds-timeline__date">
+                                                <lightning-formatted-date-time value={bookingStageObj.movieTime}
+                                                    hour="2-digit" minute="2-digit" time-zone="UTC"
+                                                    time-zone-name="short">
+                                                </lightning-formatted-date-time> | {bookingStageObj.movieDate}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <p class="slds-m-horizontal_xx-small">
+                                        <a>You</a> Booked {bookingStageObj.totalSeatsCount} Seats.
+                                        <!-- <a>Charlie Gomez</a> -->
+                                    </p>
+                                    <article
+                                        class="slds-box slds-timeline__item_details slds-theme_shade slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
+                                        aria-hidden="false">
+                                        <ul class="slds-list_horizontal slds-wrap">
+                                            <li
+                                                class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                                                <span class="slds-text-title slds-p-bottom_x-small">Category</span>
+                                                <span if:true={bookingStageObj.bookingLineItems}
+                                                    class="slds-text-body_medium slds-truncate" title="Charlie Gomez">
+                                                    <p if:true={bookingStageObj.bookingLineItems.Gold}>Gold</p><br />
+                                                    <p if:true={bookingStageObj.bookingLineItems.Platinum}>Platinum</p>
+                                                    <br />
+                                                    <p if:true={bookingStageObj.bookingLineItems.Silver}>Silver</p>
+                                                    <br />
+                                                    <p if:true={bookingStageObj.bookingLineItems.Bronze}>Bronze</p>
+                                                    <br />
+                                                    <!-- <a>Charlie Gomez</a> -->
+                                                </span>
+                                            </li>
+                                            <li
+                                                class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                                                <span class="slds-text-title slds-p-bottom_x-small">Seat No#</span>
+                                                <div class="badges details">
+                                                    <div class="badge">
+                                                        <template for:each={bookingStageObj.bookingLineItems.Gold}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <!-- <span key={bookingStageSeatObj.Id} key={seatobj.id} class="slds-badge ">{seatobj.name}</span> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template> <br>
+                                                        <template for:each={bookingStageObj.bookingLineItems.Platinum}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template> <br>
+                                                        <template for:each={bookingStageObj.bookingLineItems.Silver}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template> <br>
+                                                        <template for:each={bookingStageObj.bookingLineItems.Bronze}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template><br>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div>
+                                            <span class="slds-text-title">Paid Amount /-</span>
+                                            <p class="slds-p-top_x-small">{bookingStageObj.totalAmount}</p>
+                                        </div>
+                                    </article>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </lightning-accordion-section>
+
+        <lightning-accordion-section name="c" label="Completed Show" if:true={bookingStages.Completed}>
+            <ul class="slds-timeline">
+                <template for:each={bookingStages.Completed} for:item="bookingStageObj">
+                    <li key={bookingStageObj.id}>
+                        <div class="slds-timeline__item_expandable slds-timeline__item_task slds-is-open">
+                            <div class="slds-media">
+                                <div class="slds-media__figure">
+                                    <button class="slds-button slds-button_icon">
+                                        <svg class="slds-button__icon slds-timeline__details-action-icon"
+                                            aria-hidden="true">
+                                            <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#switch"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="slds-icon_container slds-icon-standard-task slds-timeline__icon"
+                                        title="task">
+                                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                            <use xlink:href="/_slds/icons/standard-sprite/svg/symbols.svg#task"></use>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div class="slds-media__body">
+                                    <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                        <div
+                                            class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+
+                                            <h3 class="slds-truncate"
+                                                title="Review proposals for EBC deck with larger team and have marketing review this">
+                                                <a href="#">
+                                                    <strong>{bookingStageObj.movieName}</strong>
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                            <p class="slds-timeline__date">
+                                                <lightning-formatted-date-time value={bookingStageObj.movieTime}
+                                                    hour="2-digit" minute="2-digit" time-zone="UTC"
+                                                    time-zone-name="short">
+                                                </lightning-formatted-date-time> | {bookingStageObj.movieDate}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <p class="slds-m-horizontal_xx-small">
+                                        <a>You</a> Booked {bookingStageObj.totalSeatsCount} Seats.
+                                        <!-- <a>Charlie Gomez</a> -->
+                                    </p>
+                                    <article
+                                        class="slds-box slds-timeline__item_details slds-theme_shade slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
+                                        aria-hidden="false">
+                                        <ul class="slds-list_horizontal slds-wrap">
+                                            <li
+                                                class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                                                <span class="slds-text-title slds-p-bottom_x-small">Category</span>
+                                                <span if:true={bookingStageObj.bookingLineItems}
+                                                    class="slds-text-body_medium slds-truncate" title="Charlie Gomez">
+                                                    <p if:true={bookingStageObj.bookingLineItems.Gold}>Gold</p><br />
+                                                    <p if:true={bookingStageObj.bookingLineItems.Platinum}>Platinum</p>
+                                                    <br />
+                                                    <p if:true={bookingStageObj.bookingLineItems.Silver}>Silver</p>
+                                                    <br />
+                                                    <p if:true={bookingStageObj.bookingLineItems.Bronze}>Bronze</p>
+                                                    <br />
+                                                    <!-- <a>Charlie Gomez</a> -->
+                                                </span>
+                                            </li>
+                                            <li
+                                                class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                                                <span class="slds-text-title slds-p-bottom_x-small">Seat No#</span>
+                                                <div class="badges details">
+                                                    <div class="badge">
+                                                        <template for:each={bookingStageObj.bookingLineItems.Gold}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <!-- <span key={bookingStageSeatObj.Id} key={seatobj.id} class="slds-badge ">{seatobj.name}</span> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template> <br>
+                                                        <template for:each={bookingStageObj.bookingLineItems.Platinum}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template> <br>
+                                                        <template for:each={bookingStageObj.bookingLineItems.Silver}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template> <br>
+                                                        <template for:each={bookingStageObj.bookingLineItems.Bronze}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template><br>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div>
+                                            <span class="slds-text-title">Paid Amount /-</span>
+                                            <p class="slds-p-top_x-small">{bookingStageObj.totalAmount}</p>
+                                        </div>
+                                    </article>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </lightning-accordion-section>
+        <lightning-accordion-section name="c" label="Canceled Show" if:true={bookingStages.Canceled}>
+            <ul class="slds-timeline">
+                <template for:each={bookingStages.Canceled} for:item="bookingStageObj">
+                    <li key={bookingStageObj.id}>
+                        <div class="slds-timeline__item_expandable slds-timeline__item_task slds-is-open">
+                            <div class="slds-media">
+                                <div class="slds-media__figure">
+                                    <button class="slds-button slds-button_icon">
+                                        <svg class="slds-button__icon slds-timeline__details-action-icon"
+                                            aria-hidden="true">
+                                            <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#switch"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="slds-icon_container slds-icon-standard-task slds-timeline__icon"
+                                        title="task">
+                                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                            <use xlink:href="/_slds/icons/standard-sprite/svg/symbols.svg#task"></use>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div class="slds-media__body">
+                                    <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                        <div
+                                            class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+
+                                            <h3 class="slds-truncate"
+                                                title="Review proposals for EBC deck with larger team and have marketing review this">
+                                                <a href="#">
+                                                    <strong>{bookingStageObj.movieName}</strong>
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                            <p class="slds-timeline__date">
+                                                <lightning-formatted-date-time value={bookingStageObj.movieTime}
+                                                    hour="2-digit" minute="2-digit" time-zone="UTC"
+                                                    time-zone-name="short">
+                                                </lightning-formatted-date-time> | {bookingStageObj.movieDate}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <p class="slds-m-horizontal_xx-small">
+                                        <a>You</a> Booked {bookingStageObj.totalSeatsCount} Seats.
+                                        <!-- <a>Charlie Gomez</a> -->
+                                    </p>
+                                    <article
+                                        class="slds-box slds-timeline__item_details slds-theme_shade slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
+                                        aria-hidden="false">
+                                        <ul class="slds-list_horizontal slds-wrap">
+                                            <li
+                                                class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                                                <span class="slds-text-title slds-p-bottom_x-small">Category</span>
+                                                <span if:true={bookingStageObj.bookingLineItems}
+                                                    class="slds-text-body_medium slds-truncate" title="Charlie Gomez">
+                                                    <p if:true={bookingStageObj.bookingLineItems.Gold}>Gold</p><br />
+                                                    <p if:true={bookingStageObj.bookingLineItems.Platinum}>Platinum</p>
+                                                    <br />
+                                                    <p if:true={bookingStageObj.bookingLineItems.Silver}>Silver</p>
+                                                    <br />
+                                                    <p if:true={bookingStageObj.bookingLineItems.Bronze}>Bronze</p>
+                                                    <br />
+                                                    <!-- <a>Charlie Gomez</a> -->
+                                                </span>
+                                            </li>
+                                            <li
+                                                class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                                                <span class="slds-text-title slds-p-bottom_x-small">Seat No#</span>
+                                                <div class="badges details">
+                                                    <div class="badge">
+                                                        <template for:each={bookingStageObj.bookingLineItems.Gold}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <!-- <span key={bookingStageSeatObj.Id} key={seatobj.id} class="slds-badge ">{seatobj.name}</span> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template> <br>
+                                                        <template for:each={bookingStageObj.bookingLineItems.Platinum}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template> <br>
+                                                        <template for:each={bookingStageObj.bookingLineItems.Silver}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template> <br>
+                                                        <template for:each={bookingStageObj.bookingLineItems.Bronze}
+                                                            for:item="bookingStageSeatObj">
+                                                            <!-- <div class="badge" key={bookingStageSeatObj.Id}> -->
+                                                            <span key={bookingStageSeatObj.Id} class="slds-badge"
+                                                                style="margin-top: 10px;">{bookingStageSeatObj.Seat__r.Name}
+                                                            </span>
+                                                            <!-- </div> -->
+                                                        </template><br>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div>
+                                            <span class="slds-text-title">Paid Amount /-</span>
+                                            <p class="slds-p-top_x-small">{bookingStageObj.totalAmount}</p>
+                                        </div>
+                                    </article>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </lightning-accordion-section>
+    </lightning-accordion>
+</template>

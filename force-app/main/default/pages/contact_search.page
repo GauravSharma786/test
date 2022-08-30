@@ -1,0 +1,83 @@
+<apex:page controller="ContactSearchController" lightningStylesheets="true">
+    <apex:form id="load">
+        <apex:actionFunction reRender="load" name="changeRecordsize" action="{!handleRows}" />
+        <apex:PageBlock >
+            <apex:sectionHeader title="Contacts" subtitle="Search"/>
+            <apex:inputText value="{!searchedValue}"/> 
+            <apex:commandButton value="Search" action="{!search}" reRender="load" status="status" />&nbsp;&nbsp;&nbsp;
+            <apex:actionStatus id="status" startText="Loading.." startStyle="color:blue; font-size:15px;" style="margin-left:500px" /><br/><br/>
+            <div class="slds-grid slds-grid_pull-padded-medium">
+                <div class="slds-col slds-p-horizontal_medium">
+                    Select Option:
+                    <apex:selectList size="1" value="{!selectedType}">
+                        <apex:selectOptions value="{!TypeOptionList}"></apex:selectOptions>
+                    </apex:selectList>
+                    <apex:commandButton value="Save" action="{!save}" reRender="load" status="status"/>
+                </div>
+                <div class="slds-col">
+                    <div align="right" style="margin-right:30px; font-size:16px"> 
+                        Page Size  :&nbsp;  
+                        <apex:selectList size="1" value="{!selectedPageSize}" onchange="changeRecordsize();" style="float:right">
+                            <apex:selectOptions value="{!PageSizeOptionList}"></apex:selectOptions>
+                        </apex:selectList>
+                    </div>
+                </div>
+            </div>
+            <apex:pageMessages />
+            <apex:actionStatus id="loadstatus" startText="Loading.." startStyle="color:blue; font-size:15px;" style="margin-left:500px" />
+            
+            <apex:PageBlockTable value="{!contactModelList}" var="contactModel" id="loadList"> 
+                <apex:column headerValue="Action" >
+                    <apex:inputCheckbox value="{!contactModel.isChecked}" />
+                </apex:column>
+                <apex:column value="{!contactModel.contact.Name}" >
+                    <apex:facet name="header" >  
+                        <apex:commandLink value="Name{!IF(sortFieldName=='Name',IF(orderBy='ASC','▼','▲'),'')}" action="{!sortContacts}" reRender="loadList" status="loadstatus" >
+                            <apex:param name="sortField" value="Name" assignTo="{!sortFieldName}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{!contactModel.contact.Email}" >
+                    <apex:facet name="header" >  
+                        <apex:commandLink value="Email{!IF(sortFieldName=='Email',IF(orderBy='ASC','▼','▲'),'')}" action="{!sortContacts}" reRender="loadList" status="loadstatus">
+                            <apex:param name="sortField" value="Email" assignTo="{!sortFieldName}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{!contactModel.contact.Account.Name}" >
+                    <apex:facet name="header" >  
+                        <apex:commandLink value="Account Name{!IF(sortFieldName=='Account.Name',IF(orderBy='ASC','▼','▲'),'')}" action="{!sortContacts}" reRender="loadList" status="loadstatus">
+                            <apex:param name="sortField" value="Account.Name" assignTo="{!sortFieldName}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>    
+                <apex:column value="{!contactModel.contact.Phone}" >
+                    <apex:facet name="header" >  
+                        <apex:commandLink value="Phone{!IF(sortFieldName=='Phone',IF(orderBy='ASC','▼','▲'),'')}" action="{!sortContacts}" reRender="loadList" status="loadstatus" >
+                            <apex:param name="sortField" value="Phone" assignTo="{!sortFieldName}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{!contactModel.contact.Type__c}" >
+                    <apex:facet name="header" >  
+                        <apex:commandLink value="Type{!IF(sortFieldName=='Type__C',IF(orderBy='ASC','▼','▲'),'')}" action="{!sortContacts}" reRender="loadList" status="loadstatus" >
+                            <apex:param name="sortField" value="Type__C" assignTo="{!sortFieldName}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+                <apex:column headerValue="Details">
+                    <apex:commandLink >
+                        <apex:image url="https://cdn4.iconfinder.com/data/icons/meBaze-Freebies/512/preview.png" height="20px"/>
+                    </apex:commandLink>
+                </apex:column>
+            </apex:PageBlockTable><br/>
+            
+            <div align="right" style="marin-right:20px">
+                <apex:commandButton value="First" action="{!first}" reRender="load" />
+                <apex:commandButton value="Next" action="{!next}" reRender="load" />
+                <apex:commandButton value="Previous" action="{!previous}" reRender="load" />
+                <apex:commandButton value="Last" action="{!last}" reRender="load" />
+            </div>
+        </apex:PageBlock>
+    </apex:form>
+</apex:page>

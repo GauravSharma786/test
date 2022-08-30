@@ -1,0 +1,40 @@
+<apex:component controller="ProjectStatusComponentController" access="global" >
+    <apex:attribute name="proId" type="Id" description="Id of the contact" assignTo="{!projectId}"/>
+    <apex:attribute name="show" type="String" description=" catch String" />
+    <apex:outputPanel rendered="{!IF(show == 'true' , true , false)}" >
+    	Please talk with {!SignOffPerson} to take action and complete task quickly.
+    </apex:outputPanel>
+    
+    <apex:variable var="srNo" value="{!1}" />
+    <table border = "2" cellspacing = "5">
+        <tr>
+            <th>Sr.No.</th>
+            <th>ProjectTask Name</th>  
+            <th>Creation Date</th>
+            <th>Completion Date</th>
+            <th>Completed By</th>
+        </tr>
+        <apex:repeat value="{!ProjectTasksRecords}" var="task">
+            <tr>
+                <td>{!srNo} <apex:variable var="srNo" value="{!srNo + 1}" /></td>
+                <td>{!task.Type__c}</td>
+                <td>
+                	<apex:outputText value="{0,date,dd/MM/yyyy}">
+                    <apex:param value="{!task.CreatedDate}" />
+                    </apex:outputText>
+                </td>
+                <td>
+                	<apex:outputText value="{0,date,dd/MM/yyyy}">
+                    <apex:param value="{!task.Completion_Date__c}" />
+                    </apex:outputText>
+                </td>
+                <td>{!task.CreatedBy.Name}</td>  
+            </tr>
+            
+        </apex:repeat>
+    </table><br/><br/>
+    <apex:outputPanel >
+            Thanks <br/>
+          {!SignOffPerson}
+    </apex:outputPanel>
+</apex:component>

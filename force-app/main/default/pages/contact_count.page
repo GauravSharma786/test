@@ -1,0 +1,14 @@
+<apex:page controller="ContactCountController" lightningStylesheets="true">
+    <apex:pageBlock >
+          <apex:form id="load" >
+            <apex:actionFunction reRender="load" name="changeShowRecord" />
+            <apex:sectionHeader title="Account" subtitle="Contacts"/>
+              Select:
+            <apex:inputCheckBox value="{!isChecked}" title="Show Count" onChange="changeShowRecord();" />
+            <apex:pageBlockTable value="{!accountModelList}" var="accountModel">
+                <apex:column headerValue="Account Name"  value="{!accountModel.account.Name}" ></apex:column>
+                <apex:column headerValue="Contacts Count" value="{!accountModel.count}" rendered="{!isChecked}" />
+            </apex:pageBlockTable>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,48 @@
+<template>
+    <div>
+        <!-- <lightning-card variant="Narrow" title="Seat Booking">
+
+            <template for:each={allSeats} for:item="obj">
+                obj.seatCategory.NamE
+                <template for:each={obj.bookingLineItemList} for:item="obj">
+
+                </template>
+            </template>
+ -->
+        <template for:each={allSeats} for:item="obj">
+            <div class="slds-m-around_small" key={obj.Id}>
+                <b>
+                    <p class="font">{obj.seatCategory.Name}</p>
+                </b>
+                <div class="slds-box slds-box_small">
+                    <lightning-layout multiple-rows>
+                        <template for:each={obj.bookingLineItemList} for:item="objseats" for:index="index">
+                            <lightning-layout-item key={objseats.id} size="12" small-device-size="1"
+                                medium-device-size="6" large-device-size="1">
+                                <div if:true={objseats.isBooked} class={objseats.styleClass}>
+                                    {objseats.name}
+                                </div>
+                                <div if:false={objseats.isBooked} class={objseats.styleClass} onclick={handleClick}
+                                    data-id={objseats.id} data-name={objseats.name}
+                                    data-category={obj.seatCategory.Name} data-categoryprice={obj.seatCategory.Price__c}
+                                    data-categoryid={obj.seatCategory.Id}>
+                                    {objseats.name}
+                                </div>
+                            </lightning-layout-item>
+                        </template>
+                    </lightning-layout>
+                </div>
+            </div>
+        </template>
+        <lightning-card>
+            <div class="indicators">
+                <div class="indicator-avaiable"></div>
+                <p class="text">Avaiable</p>
+                <div class="indicator-booked"></div>
+                <p class="text">Booked</p>
+                <div class="indicator-selected"></div>
+                <p class="text">Selected</p>
+            </div>
+        </lightning-card>
+    </div>
+</template>

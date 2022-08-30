@@ -1,0 +1,351 @@
+<template>
+	<div if:false={showObjectInfo} style="background-color: #f0f4f8;" class="slds-form-element slds-box">
+		<!-- <h1 align="center" class="slds-text-heading_large">Object and Field Manager</h1> -->
+		<div class="slds-p-around_medium">
+			<h1 style="margin-top: -29px;" align="center" class="slds-text-heading_large">Object Manager</h1>
+
+			<div
+				style="background: rgb(27 48 151 / 12%);font-size: 17px;width: 1472px;  margin-left: -32px;   margin-top: 12px;   font-weight: bold; padding-top: 4px; padding-bottom: 4px;">
+				<span style="margin-left: 43px;"> Custom Object Information</span>
+			</div>
+
+			<!-- ROW-1 -->
+			<lightning-layout horizontal-align="center">
+				<lightning-layout-item size="12" small-device-size="3" medium-device-size="6" large-device-size="3"
+					padding="horizontal-small">
+					<lightning-input type="text" label="Object Name" required="" name="objectName"
+						onchange={handleObjectInputValueAndComboboxChange}>
+					</lightning-input>
+				</lightning-layout-item>
+				<lightning-layout-item size="12" small-device-size="3" medium-device-size="6" large-device-size="3"
+					padding="horizontal-small">
+					<lightning-input type="text" label="Object Plural Name" required="" name="objectPluralName"
+						onchange={handleObjectInputValueAndComboboxChange}>
+					</lightning-input>
+				</lightning-layout-item>
+			</lightning-layout>
+			<!-- ROW-2 -->
+			<lightning-layout horizontal-align="center">
+				<lightning-layout-item size="12" small-device-size="3" medium-device-size="6" large-device-size="3"
+					padding="horizontal-small">
+					<lightning-input type="text" label="Object API Name" required="" name="objectApiName"
+						onchange={handleObjectInputValueAndComboboxChange}>
+					</lightning-input>
+				</lightning-layout-item>
+				<lightning-layout-item size="12" small-device-size="3" medium-device-size="6" large-device-size="3"
+					padding="horizontal-small">
+					<lightning-input style="margin-top: 29px;" type="checkbox" name="startWithVowelSound"
+						label="Starts with vowel sound" onchange={handleObjectCheckboxValueChange}>
+					</lightning-input>
+				</lightning-layout-item>
+			</lightning-layout>
+			<!-- ROW-3 -->
+			<lightning-layout horizontal-align="center">
+				<lightning-layout-item size="12" small-device-size="3" medium-device-size="6" large-device-size="6"
+					padding="horizontal-small">
+					<lightning-textarea name="description" label="Description"
+						onchange={handleObjectInputValueAndComboboxChange}></lightning-textarea>
+				</lightning-layout-item>
+			</lightning-layout>
+			<!-- ROW-4 -->
+			<lightning-layout horizontal-align="center">
+				<lightning-layout-item size="12" small-device-size="3" medium-device-size="6" large-device-size="6"
+					padding="horizontal-small">
+					<lightning-radio-group name="context_Sensitive_Help_Setting" label="Context-Sensitive Help Setting"
+						options={options} type="radio" onchange={handleObjectRadioValueChange}>
+					</lightning-radio-group>
+				</lightning-layout-item>
+			</lightning-layout>
+			<!-- Custom Object Information : END -->
+
+
+			<!-- custome object field Info -->
+			<div style="background: rgb(27 48 151 / 12%);font-size: 17px;width: 1472px; margin-left: -32px; margin-top:
+				12px; font-weight: bold; padding-top: 4px; padding-bottom: 4px; margin-top: 11px;">
+				<span style="margin-left: 43px;"> Enter Record Name Label and Format</span>
+			</div>
+
+			<lightning-layout horizontal-align="center">
+				<lightning-layout-item size="12" small-device-size="3" medium-device-size="6" large-device-size="3"
+					padding="horizontal-small">
+					<lightning-input placeholder="Example: Account Name" type="text" label="Record Name" required=""
+						name="recordName" onchange={handleObjectInputValueAndComboboxChange}>
+					</lightning-input>
+				</lightning-layout-item>
+				<lightning-layout-item size="12" small-device-size="3" medium-device-size="6" large-device-size="3"
+					padding="horizontal-small">
+					<lightning-combobox style="width: 150px;" name="dataType" label="Data Type" value={value}
+						options={objectDataTypes} onchange={handleObjectInputValueAndComboboxChange}> required="">
+					</lightning-combobox>
+				</lightning-layout-item>
+			</lightning-layout>
+
+
+			<lightning-layout if:true={isFormatRequeried} horizontal-align="center">
+				<lightning-layout-item size="12" small-device-size="3" medium-device-size="6" large-device-size="3"
+					padding="horizontal-small">
+					<lightning-input placeholder="Example: E-0000" type="text" label="Display Format"
+						name="displayFormat" required={isFormatRequeried}
+						onchange={handleObjectInputValueAndComboboxChange}>
+					</lightning-input>
+				</lightning-layout-item>
+				<lightning-layout-item size="12" small-device-size="3" medium-device-size="6" large-device-size="3"
+					padding="horizontal-small">
+					<lightning-input type="number" label="Statrting Number" required={isFormatRequeried}
+						name="startingNumber" onchange={handleObjectInputValueAndComboboxChange}>
+					</lightning-input>
+				</lightning-layout-item>
+			</lightning-layout>
+			<!-- custome object field Info Fenish-->
+
+			<div style="background: rgb(27 48 151 / 12%);font-size: 17px;width: 1472px; margin-left: -32px; margin-top:
+							12px; font-weight: bold; padding-top: 4px; padding-bottom: 4px; margin-top: 11px;">
+				<span style="margin-left: 43px;">Additional Information</span>
+			</div>
+
+			<lightning-layout horizontal-align="center">
+				<lightning-layout-item size="12" small-device-size="3" medium-device-size="6" large-device-size="6"
+					padding="horizontal-small">
+					<lightning-input type="checkbox" name="allowReports" label="Allow Reports"
+						onchange={handleObjectCheckboxValueChange}></lightning-input>
+					<lightning-input type="checkbox" name="alloeActivity" label="Allow Activities"
+						onchange={handleObjectCheckboxValueChange}></lightning-input>
+					<lightning-input type="checkbox" name="trackFieldHistory" label="Track Field History"
+						onchange={handleObjectCheckboxValueChange}>
+					</lightning-input>
+					<lightning-input type="checkbox" name="allowInChatterGroups" label="Allow in Chatter Groups"
+						onchange={handleObjectCheckboxValueChange}>
+					</lightning-input>
+					<lightning-input type="checkbox" name="allowSharing" label="Allow Sharing"
+						onchange={handleObjectCheckboxValueChange}></lightning-input>
+					<lightning-input type="checkbox" name="allowBulkAPIAccess" label="Allow Bulk API Access"
+						onchange={handleObjectCheckboxValueChange}>
+					</lightning-input>
+					<lightning-input type="checkbox" name="allowStreamingAPIAccess" label="Allow Streaming API Access"
+						onchange={handleObjectCheckboxValueChange}>
+					</lightning-input>
+					<lightning-radio-group name="deploymentStatus" label="Deployment Status"
+						options={deploaymentOptions} type="radio" onchange={handleObjectRadioValueChange}>
+					</lightning-radio-group>
+
+
+				</lightning-layout-item>
+			</lightning-layout>
+
+			<lightning-button variant="brand" label="Next" title="Primary action" onclick={handleClick}
+				class="slds-m-left_x-small slds-float_right"></lightning-button>
+		</div>
+	</div>
+
+	<!-- custome object field Info Fenish-->
+
+
+	<div if:true={showObjectInfo}>
+		<div class="main-table slds-border_bottom slds-p-bottom_medium">
+			<div class="slds">
+				<div style="width: 110rem;">
+					<template for:each={fieldInformations} for:item="item" for:index="index">
+						<table key={item.id} class="slds-table slds-table--bordered">
+							<!-- class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal"> -->
+							<thead>
+								<tr class="slds-line-height_reset">
+									<th scope="col"></th>
+									<th scope="col">Field Label</th>
+									<th scope="col">Field Name</th>
+									<th scope="col">Field Type</th>
+									<th scope="col">Help Text</th>
+									<th scope="col">Description</th>
+									<th if:true={item.isLengthColoumShow} scope="col">Length</th>
+									<th if:true={item.isVisibleLinesShow} scope="col">Visible Lines</th>
+									<th if:true={item.isDecemalPlacesShow} scope="col">Decimal Places</th>
+									<th if:true={item.isDisplayFormatShow} scope="col">Display Format</th>
+									<th if:true={item.isStartingNumberShow} scope="col">Starting Number</th>
+									<th if:true={item.isRequiredCheckBoxShow} scope="col">Requried</th>
+									<th if:true={item.isUniqueCheckBoxShow} scope="col">Unique</th>
+									<!-- <th scope="col" style="width: 6%;">Customer Address</th>
+								<th scope="col" style="width: 9%;">Document text</th>
+								<th scope="col" style="width: 9%;">Account</th>
+								<th scope="col" style="width: 10%;">SAP Text</th>
+								<th scope="col" style="width: 10%;">Amount</th>
+								<th scope="col">Financial instrument</th>
+								<th style="width: 8%;" scope="col">Profit CTR</th>
+								<th scope="col" style="width: 16%;">Sales Order</th>
+								<th scope="col" style="width: 15%;">Remarks</th>
+								<th if:true={isShowAction} scope="col" style="width: 20%;">Action</th> -->
+									<th scope="col"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <template for:each={fieldInformations} for:item="item" for:index="index"> -->
+								<tr class="slds-hint-parent">
+									<th class="slds-p-bottom_none" data-label="SrNo" scope="row">
+										<!-- <div>
+											<span class="">&nbsp;</span>
+										</div> -->
+									</th>
+									<th class="slds-p-bottom_none " scope="row">
+										<lightning-input placeholder="Enter Field Label" type="text" class="inputBox"
+											variant="label-hidden" name="fieldLabel" data-index={index}
+											onchange={handleFieldInputValueChange} value={item.fieldLabel}
+											onblur={handleFieldBlurEventOnInput} required>
+											<!-- min={minimumDocumenttext} max={maximumDocumenttext} -->
+										</lightning-input>
+										<!-- <div>
+											<span class="">&nbsp;</span>
+										</div> -->
+									</th>
+									<th class="slds-p-bottom_none" scope="row">
+										<lightning-input placeholder="Enter Field Name" type="text" class="inputBox"
+											variant="label-hidden" name="fieldName" data-index={index}
+											onchange={handleFieldInputValueChange} value={item.fieldName} required>
+											<!-- min={minimumDocumenttext} max={maximumDocumenttext} -->
+										</lightning-input>
+										<!-- <div>
+											<span class="">&nbsp;</span>
+										</div> -->
+									</th>
+									<th class="slds-p-bottom_none" scope="row" style="width: 275px;">
+										<lightning-combobox style="width: 250px;" name="fieldDataType" label="Data Type"
+											variant="label-hidden" options={fieldDataTypes} class="inputBox"
+											onchange={handleDataTypeOfFieldInputValueChange} value={item.fieldDataType}
+											required="" data-index={index} data-unique={item.uniqueKey}>
+										</lightning-combobox>
+										<!-- <div>
+											<span class="">&nbsp;</span>
+										</div> -->
+									</th>
+
+									<th class="slds-p-bottom_none" scope="row">
+										<lightning-input placeholder="Enter Helptext" type="text" class="inputBox"
+											variant="label-hidden" name="helpText" data-index={index}
+											onchange={handleFieldInputValueChange} value={item.helpText}>
+											<!-- min={minimumDocumenttext} max={maximumDocumenttext} -->
+										</lightning-input>
+										<!-- <div>
+											<span class="">&nbsp;</span>
+										</div> -->
+									</th>
+
+									<th class="slds-p-bottom_none" scope="row">
+										<lightning-input placeholder="Enter Description" type="text" class="inputBox"
+											variant="label-hidden" name="description" data-index={index}
+											onchange={handleFieldInputValueChange} value={item.description}>
+											<!-- min={minimumDocumenttext} max={maximumDocumenttext} -->
+										</lightning-input>
+										<!-- <div>
+											<span class="">&nbsp;</span>
+										</div> -->
+									</th>
+
+									<th if:true={item.isLengthColoumShow} class="slds-p-bottom_none" scope="row">
+										<lightning-input placeholder="Enter Length" type="number" class="inputBox"
+											variant="label-hidden" name="length" data-index={index}
+											onchange={handleFieldInputValueChange} value={item.length} required>
+											<!-- min={minimumDocumenttext} max={maximumDocumenttext} -->
+										</lightning-input>
+										<!-- <div>
+											<span class="">&nbsp;</span>
+										</div> -->
+									</th>
+
+									<th if:true={item.isVisibleLinesShow} class="slds-p-bottom_none" scope="row">
+										<lightning-input placeholder="Enter Visible Lines" type="number"
+											class="inputBox" variant="label-hidden" name="visibleLines"
+											data-index={index} onchange={handleFieldInputValueChange}
+											value={item.visibleLines} required>
+											<!-- min={minimumDocumenttext} max={maximumDocumenttext} -->
+										</lightning-input>
+										<!-- <div>
+																				<span class="">&nbsp;</span>
+																			</div> -->
+									</th>
+
+									<th if:true={item.isDecemalPlacesShow} class="slds-p-bottom_none" scope="row">
+										<lightning-input placeholder="Enter Decimal Places" type="Number"
+											class="inputBox" variant="label-hidden" name="decimalPlaces"
+											data-index={index} onchange={handleFieldInputValueChange}
+											value={item.decimalPlaces} required>
+											<!-- min={minimumDocumenttext} max={maximumDocumenttext} -->
+										</lightning-input>
+										<!-- <div>
+											<span class="">&nbsp;</span>
+										</div> -->
+									</th>
+
+									<th if:true={item.isDisplayFormatShow} class="slds-p-bottom_none" scope="row">
+										<lightning-input placeholder="Example E-'{0000}'" type="Text" class="inputBox"
+											variant="label-hidden" name="displayFormat" data-index={index}
+											onchange={handleFieldInputValueChange} value={item.displayFormat} required>
+											<!-- min={minimumDocumenttext} max={maximumDocumenttext} -->
+										</lightning-input>
+										<!-- <div>
+																				<span class="">&nbsp;</span>
+																			</div> -->
+									</th>
+
+									<th if:true={item.isStartingNumberShow} class="slds-p-bottom_none" scope="row">
+										<lightning-input placeholder="Enter Starting Number" type="Number"
+											class="inputBox" variant="label-hidden" name="startingNumber"
+											data-index={index} onchange={handleFieldInputValueChange}
+											value={item.startingNumber} required>
+											<!-- min={minimumDocumenttext} max={maximumDocumenttext} -->
+										</lightning-input>
+										<!-- <div>, mk'lkm
+											pokjp/
+																													<span class="">&nbsp;</span>
+																												</div> -->
+									</th>
+
+									<th if:true={item.isRequiredCheckBoxShow} class="slds-p-bottom_none" scope="row">
+										<lightning-input type="checkbox" class="inputBox" variant="label-hidden"
+											name="isRequired" data-index={index}
+											onchange={handleFieldCheckBoxValueChange} value={item.isRequired}>
+											<!-- min={minimumDocumenttext} max={maximumDocumenttext} -->
+										</lightning-input>
+										<!-- <div>
+											<span class="">&nbsp;</span>
+										</div> -->
+									</th>
+
+									<th if:true={item.isUniqueCheckBoxShow} class="slds-p-bottom_none" scope="row">
+										<lightning-input type="checkbox" class="inputBox" variant="label-hidden"
+											name="isUnique" data-index={index} onchange={handleFieldCheckBoxValueChange}
+											value={item.isUnique}>
+											<!-- min={minimumDocumenttext} max={maximumDocumenttext} -->
+										</lightning-input>
+										<!-- <div>
+																				<span class="">&nbsp;</span>
+																			</div> -->
+									</th>
+
+									<th class="slds-p-bottom_none" data-label="Action" scope="row">
+										<span data-index={index} onclick={handleRemoveRow}
+											class="remove-button slds-p-right_small">
+											<lightning-icon icon-name="utility:close" size="x-small"
+												alternative-text="remove">
+											</lightning-icon>
+										</span>
+										<!-- <div>
+											<span class="">&nbsp;</span>
+										</div> -->
+									</th>
+								</tr>
+							</tbody>
+						</table>
+					</template>
+				</div>
+			</div>
+		</div>
+
+		<div class="slds-clearfix slds-m-top_medium">
+			<div class="slds-float_right">
+				<lightning-button onclick={handleAddRow} variant="neutral" label="Add Row" class="slds-m-left_small">
+				</lightning-button>
+				<lightning-button onclick={handleSubmit} variant="brand" label="Submit"
+					class="slds-m-left_small submit">
+				</lightning-button>
+			</div>
+		</div>
+
+	</div>
+</template>

@@ -1,0 +1,22 @@
+<apex:page standardController="Contact" extensions="AttachmentInlineController">
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock >
+            <apex:pageBlockSection collapsible="2">
+                <apex:pageBlockSectionItem >
+                    <apex:image url="{!$Resource.StaticPhoto}"   height="100px" width="100px" rendered="{!recentAttachment.Id = Null}"/>
+                    <apex:image url="/servlet/servlet.FileDownload?file={!recentAttachment.Id}" height="100px" width="100px" rendered="{!recentAttachment.Id!=Null}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:inputFile value="{!attachment.body}" contentType="{!attachment.ContentType}" filename="{!attachment.name}"/>
+                    <apex:commandButton value="Save Attachment" action="{!save}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <script>
+        if("{!attachment.Id}" != ""){
+            window.parent.location.href="/{!attachment.ParentId}";
+        } 
+        </script>
+    </apex:form>
+</apex:page>

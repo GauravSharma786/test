@@ -1,0 +1,10 @@
+<apex:page controller="AggregateController">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!contacts}" var="contact">
+                <apex:column headerValue="Contact Name" value="{!contact.Name}" />
+                <apex:column headerValue="Contact Attachments" value="{!contact.Attachments.size}" />
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

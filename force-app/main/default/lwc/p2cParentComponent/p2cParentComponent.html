@@ -1,0 +1,25 @@
+<template>
+   
+    <lightning-card>
+        <lightning-layout horizontal-align="center" vertical-align="end">
+            <div class="slds-var-m-top_large slds-var-p-right_medium">
+                <lightning-layout-item size="4">
+                    <lightning-combobox 
+                    name="progress"
+                    label="Status"
+                    value={value}
+                    placeholder="Select Progress"
+                    options={options}
+                    onchange={slectedValue}
+                    > </lightning-combobox>
+                </lightning-layout-item>
+            </div>
+            <lightning-layout-item size="4">
+                <lightning-button label="show" onclick={newButtonHandler}></lightning-button>
+            </lightning-layout-item>
+        </lightning-layout><br/><br/>
+        <div if:true={isShow}>
+        <c-p2c-child-component parentvalue={value} ></c-p2c-child-component>
+    </div>
+    </lightning-card>
+</template>

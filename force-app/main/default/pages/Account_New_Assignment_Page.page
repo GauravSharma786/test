@@ -1,0 +1,50 @@
+<apex:page controller="Account_New_Assignment">
+    <apex:form id="loadList">
+     <apex:actionFunction action="{!showForms}" reRender="loadList" name="showForms"/>
+    
+        <apex:pageBlock >
+            Account:
+            <apex:selectList size="1"  value="{!selectedAccount}" onchange="showForms();">
+                <apex:selectOptions value="{!accountOptions}"></apex:selectOptions>
+            </apex:selectList>
+        </apex:pageBlock>
+         <apex:pageBlock rendered="{!showForm}"> 
+            <apex:pageBlockSection >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="BillingStreet"/>
+                    <apex:inputField value="{!account.BillingStreet}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="BillingCity"/>
+                    <apex:inputField value="{!account.BillingCity}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="BillingState"/>
+                    <apex:inputField value="{!account.BillingState}"/>
+                </apex:pageBlockSectionItem>
+                  <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="BillingPostalCode"/>
+                    <apex:inputField value="{!account.BillingPostalCode}"/>
+                </apex:pageBlockSectionItem>
+                  <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="BillingCountry"/>
+                    <apex:inputField value="{!account.BillingCountry}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+           <apex:pageBlockButtons >
+                <apex:commandButton value="Save Record" action="{!saveRecord}" reRender="loadList"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        
+         <apex:pageBlock title="Contact Table" >
+            <apex:pageBlockTable value="{!contactRecords}" var="contact" > 
+                	<apex:column headerValue="Contact Name"><apex:inputField value="{!contact.Name}" /></apex:column>
+         <!--           <apex:column headerValue="Student Date Of Birth"><apex:inputField value="{!contact.DOB__c}" /></apex:column>
+                    <apex:column headerValue="Student Email"><apex:inputField value="{!contact.Email__c}"  /></apex:column>
+                    <apex:column headerValue="Student Gender"><apex:inputField value="{!contact.Gender__c}" /></apex:column>
+                    <apex:column headerValue="Student Class"><apex:inputField value="{!contact.Class__c}" /></apex:column>
+               		 <apex:column headerValue="Student Age"><apex:inputField value="{!contact.Age__c}" /></apex:column> -->
+            </apex:pageBlockTable>
+        </apex:pageBlock>      
+    </apex:form>
+</apex:page>

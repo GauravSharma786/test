@@ -1,0 +1,10 @@
+<apex:page controller="AccountAggregateController">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!accountModelList}" var="account">
+                <apex:column headerValue="Account Name" value="{!account.name}" />
+                <apex:column headerValue="Total Contacts" value="{!account.count}" />
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

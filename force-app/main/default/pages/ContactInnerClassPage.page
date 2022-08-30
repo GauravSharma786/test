@@ -1,0 +1,26 @@
+<apex:page controller="ContactInnerClassController">
+    <apex:form >
+        <apex:pageBlock title="Contact Table">
+            <apex:pageBlockTable value="{!models}" var="cm">
+               <apex:column headerValue="Action"> 
+                    <apex:commandButton action="{!uploadAttachment}" value="Upload Image" reRender="Contact">
+                   	 	<apex:param name="cid" value="{!cm.contact.id}" assignTo="{!cid}" />
+                    </apex:commandButton>
+                </apex:column> 
+                <apex:column headerValue="S.N">
+                    <apex:outputText value="{!cm.srNo}"/>
+                </apex:column>/>
+                <apex:column value="{!cm.contact.FirstName}" />
+                <apex:column value="{!cm.contact.LastName}" />
+                <apex:column value="{!cm.contact.Phone}" />
+                <apex:column value="{!cm.contact.Birthdate}" />
+                <apex:column >
+                    <apex:image url="{!cm.attachment}" height="50px" width="50px" rendered="{!cm.hasAttach}" />
+                    <apex:image url="{!$Resource.StaticPhoto}" height="50px" width="50px" rendered="{!!cm.hasAttach}" />
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:pageBlockButtons >
+            </apex:pageBlockButtons>
+        </apex:pageBlock>      
+    </apex:form>
+</apex:page>

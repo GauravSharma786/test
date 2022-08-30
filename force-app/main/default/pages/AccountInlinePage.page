@@ -1,0 +1,28 @@
+<apex:page standardController="Account" extensions="Account_Inline_Controller">
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock >
+            <apex:pageBlockSection collapsible="false">
+                <apex:pageBlockSection collapsible="false" columns="1">
+                    Total Rcords<apex:outputText value="{!contactParentRecords.size}" />
+                    <apex:pageBlockTable value="{!contactParentRecords}" var="con">
+                        <apex:Column ><apex:inputCheckbox value="{!con.isChecked}" /></apex:Column>
+                        <apex:column value="{!con.parent.Name}"/>
+                    </apex:pageBlockTable>
+                    <apex:commandButton value="Remove" action="{!remove}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection collapsible="false" columns="1">
+                     Total Rcords<apex:outputText value="{!contactNoParentRecords.size}" />
+                    <apex:pageBlockTable value="{!contactNoParentRecords}" var="con">
+                        <apex:Column ><apex:inputCheckbox value="{!con.isChecked}" /></apex:Column>
+                        <apex:column value="{!con.parent.Name}"/>
+                    </apex:pageBlockTable>
+                     <apex:commandButton value="Add" action="{!add}"/>
+                </apex:pageBlockSection> 
+            </apex:pageBlockSection>
+             <apex:PageBlockButtons >
+                        <apex:commandButton value="Save" action="{!save}"/>
+              </apex:PageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

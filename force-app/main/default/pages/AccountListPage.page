@@ -1,0 +1,20 @@
+<apex:page standardController="Account" recordSetVar="Accounts">
+    <apex:form >
+        <apex:pageBlock title="Account Table">
+            <apex:pageBlockTable value="{!Accounts}" var="Account" > 
+                <apex:column headerValue="Action" > 
+                    <apex:commandLink value="Details" action="/apex/AccountDetailPage?id={!Account.Id}"/> 
+                </apex:column>
+                <apex:column value="{!Account.Name}" />
+            </apex:pageBlockTable>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!first}" value="First"/>
+                <apex:commandButton action="{!previous}" value="Previous"/>
+                <apex:commandButton action="{!next}" value="Next"/>
+                <apex:commandButton action="{!last}" value="Last"/>
+                <apex:commandButton action="{!delete}" value="Delete"/>
+            </apex:pageBlockButtons>
+            
+        </apex:pageBlock>      
+    </apex:form>
+</apex:page>

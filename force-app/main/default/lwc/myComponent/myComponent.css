@@ -1,0 +1,27 @@
+h1 {
+    color: rgb(0, 112, 210);
+}
+h3 {
+    color: rgb(100, 12, 216);
+}
+h2 {
+    font-size: 4ch;
+    color: rgb(39, 112, 64);
+    background-color: #b9b9aa;
+    height: 30vh;
+    overflow: auto;
+}
+.one{
+    margin-top: 20px;
+}
+.two{
+    margin-top: 20px;
+}
+.three{
+    height:60px;
+    margin-top: 100px;
+    
+}
+.lgc-bg {
+    background-color: rgb(242, 242, 242);
+}

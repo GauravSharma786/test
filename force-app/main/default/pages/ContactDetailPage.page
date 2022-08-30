@@ -1,0 +1,18 @@
+<apex:page controller="ContactListController">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageMessages />
+            <apex:sectionHeader title="Contact" subtitle="New/Edit Page"/>
+            <apex:pageBlockSection collapsible="false">
+                <apex:outputField value="{!contact.FirstName}"/>
+                <apex:outputField value="{!contact.LastName}"/>
+                <apex:outputField value="{!contact.phone}"/>
+                <apex:outputField value="{!contact.Birthdate}"/>
+                </apex:pageBlockSection>
+           <apex:pageBlockButtons >
+                <apex:commandButton action="{!assignTask}" value="Assign Task" />
+               <apex:commandButton action="{!uploadAttachment}" value="Upload Attachment" />
+            </apex:pageBlockButtons> 
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,145 @@
+<template>
+    <lightning-input type="number" pattern="^\d*(\.\d{0,0})?$"
+        message-when-pattern-mismatch="please select corrent value"></lightning-input>
+    <lightning-card>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="12" padding="around-small" small-device-size="3" medium-device-size="6"
+                large-device-size="4">
+                <div class="custom-box">
+                    <lightning-input type="search" icon-name="utility:search" name="pName" label=""
+                        placeholder="Product Name" onchange={searchByName} value={productName}></lightning-input>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-small" small-device-size="3" medium-device-size="6"
+                large-device-size="4">
+                <div class="custom-box">
+                    <lightning-input type="search" icon-name="utility:search" value={productPrice} label=""
+                        placeholder="Price" name="pPrice" onchange={searchByName}></lightning-input>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-small" small-device-size="3" medium-device-size="6"
+                large-device-size="4">
+                <div class="custom-box">
+                    <lightning-button class="slds-float_right slds-p-top_medium" variant="brand-outline" label="New"
+                        title="New" onclick={handleOnViewModel}>
+                    </lightning-button>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+
+    <div style="height: 300px;">
+        <lightning-datatable hide-checkbox-column key-field="id" data={mainData} show-row-number-column
+            row-number-offset={rowOffset} columns={columns} onsave={handleSave1} draft-values={draftValues}>
+        </lightning-datatable></br>
+        <lightning-layout horizontal-align="space">
+            <lightning-layout-item flexibility="auto">
+                <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler}>
+                </lightning-button>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto">
+                Page {page} of {totalPage}
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto">
+                <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right"
+                    onclick={nextHandler}></lightning-button>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+    <div if:true={showModel}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close">
+                        <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                        </svg>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">New Matrix Data</h2></br>
+                    <lightning-record-edit-form object-api-name={childObjectApiName}>
+                        <p> Price Matrix:s</p>
+                        <lightning-input-field id="fieldid" required={required} variant="label-hidden"
+                            field-name={targetFieldApiName} value={value} onchange={handleChange} disabled={disabled}>
+                        </lightning-input-field>
+                    </lightning-record-edit-form>
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="12" padding="around-small" small-device-size="3"
+                            medium-device-size="6" large-device-size="6">
+                            <b>
+                                <div class="custom-box">Input Data</div>
+                            </b>
+                            <div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="text" label="Attribute Name" name="attributeName">
+                                </lightning-input>
+                                <lightning-input type="text" label="Attribute Value" name="attributeValue">
+                                </lightning-input>
+                                <lightning-input type="text" label="Product Name" name="productName">
+                                </lightning-input>
+                                <lightning-input type="text" label="Product Code" name="productCode">
+                                </lightning-input>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" padding="around-small" small-device-size="3"
+                            medium-device-size="6" large-device-size="6">
+                            <b>
+                                <div class="custom-box">Output Data</div>
+                            </b>
+                            <div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="text" label="MRP" name="mrp"></lightning-input>
+                                <lightning-input type="text" label="GST" name="gst"></lightning-input>
+                                <lightning-input type="text" label="Target Product Name" name="targetProductName">
+                                </lightning-input>
+                                <lightning-input type="text" label="Target Product Code" name="targetProductCode">
+                                </lightning-input>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </header>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={handlemodel}>Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={save}>Save</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+
+    <lightning-button variant="brand" label="Open Model" title="Hello" onclick={handleClickExtra}></lightning-button>
+
+    <div class="custom-modal" if:true={isShowModel}>
+        <section role="dialog" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <span class="slds-modal__close">
+                        <lightning-icon icon-name="utility:close" variant="inverse" alternative-text="close">
+                        </lightning-icon>
+                    </span>
+                    <h2 class="slds-text-heading_medium slds-hyphenate">Modal Header</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <lightning-layout multiple-rows>
+                            <template if:true={bankInfoData} for:each={bankInfoData} for:item="obj">
+                                <lightning-layout-item key={obj} size="6" padding="around-small">
+                                    <div class="slds-text-title slds-form-element__label"
+                                        style="text-transform: capitalize !important;">{obj.label}</div>
+                                    <div class="custom-box slds-border_bottom">{obj.value}&nbsp;</div>
+                                </lightning-layout-item>
+                            </template>
+
+                        </lightning-layout>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button onclick={handleClickExtraCancel} label="Cancel" title="Cancel"
+                        class="slds-m-right_small"></lightning-button>
+                    <lightning-button variant="brand" label="Save" title="Save"></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</template>

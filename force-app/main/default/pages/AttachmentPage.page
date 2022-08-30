@@ -1,0 +1,10 @@
+<apex:page standardController="Contact">
+    <apex:pageBlock title="Attachment List">
+    <apex:pageBlockTable value="{!Contact.Attachments}" var="Attachment">
+        <apex:column value="{!Attachment.Name}"/>
+            <apex:column value="{!Attachment.ContentType}"/>
+            <apex:column value="{!Attachment.Description}"/>
+            <apex:column ><img src="/servlet/servlet.FileDownload?file={!Attachment.Id}" width="100"/> </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

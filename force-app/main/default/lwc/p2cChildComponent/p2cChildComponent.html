@@ -1,0 +1,21 @@
+<template>
+    <lightning-carousel>
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+                <div class="img ">              
+                    <img src={obj.src} alt="Image">
+                  </div>
+            </div>
+            <div class="slds-col">
+                <div class="text">
+                <ul class="slds-list_dotted">
+                    <li>Header : {obj.header}</li>
+                    <li>Description : {obj.description}</li>
+                    <li>Text : {obj.text}</li>
+                  </ul>
+                </div>
+            </div>
+          </div>
+          
+    </lightning-carousel>
+</template>

@@ -1,0 +1,19 @@
+<apex:page controller="BookingController" >
+    <apex:form >
+        <apex:pageBlock title="Booking Record">
+            <apex:pageBlockSection title="Booking Record " columns="2" collapsible="true">
+                <apex:outputField value="{!booking.Name}"/>
+                <apex:outputField value="{!booking.Room__c}"/>
+                <apex:outputField value="{!booking.Customer__c}"/>
+                 <apex:inputField value="{!booking.Customer__r.First_Name__c}"/>
+                <apex:outputField value="{!booking.Status__c}"/>
+                <apex:outputField value="{!booking.Check_In__c}"/>
+                <apex:outputField value="{!booking.Check_Out_Time__c}"/>
+                <apex:outputField value="{!booking.Email__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!BookingList}" value="Back"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
